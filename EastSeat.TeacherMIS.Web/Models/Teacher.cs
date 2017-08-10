@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace EastSeat.TeacherMIS.Web.Models
 {
@@ -23,5 +24,7 @@ namespace EastSeat.TeacherMIS.Web.Models
 
         public virtual School School { get; set; }
         public virtual Headmaster Headmaster { get; set; }
+        public virtual IQueryable<SubjectTaught> SubjectsTaught { get; set; }
+        public virtual TeacherFile TeacherFile { get; set; }
     }
 }

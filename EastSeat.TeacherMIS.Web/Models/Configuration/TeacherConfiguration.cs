@@ -92,6 +92,8 @@ namespace EastSeat.TeacherMIS.Web.Models.Configuration
             entity.Property(t => t.RowVersion)
                 .IsRequired()
                 .IsRowVersion();
+
+            entity.ToTable("Teacher");
         }
     }
 }
