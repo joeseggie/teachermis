@@ -8,9 +8,10 @@ using EastSeat.TeacherMIS.Web.Data;
 namespace EastSeat.TeacherMIS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170810193027_TeacherFileSubjectTaught")]
+    partial class TeacherFileSubjectTaught
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -242,7 +243,7 @@ namespace EastSeat.TeacherMIS.Web.Migrations
 
                     b.HasIndex("SchoolId");
 
-                    b.ToTable("Teacher");
+                    b.ToTable("Teachers");
                 });
 
             modelBuilder.Entity("EastSeat.TeacherMIS.Web.Models.TeacherFile", b =>

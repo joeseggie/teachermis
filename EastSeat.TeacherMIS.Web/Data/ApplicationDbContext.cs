@@ -20,6 +20,9 @@ namespace EastSeat.TeacherMIS.Web.Data
         public DbSet<Headmaster> Headmasters { get; set; }
         public DbSet<School> Schools { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<TeacherFile> TeacherFiles { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<SubjectTaught> SubjectsTaught { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -31,6 +34,9 @@ namespace EastSeat.TeacherMIS.Web.Data
             builder.AddConfiguration(new HeadmasterConfiguration());
             builder.AddConfiguration(new TeacherConfiguration());
             builder.AddConfiguration(new SchoolConfiguration());
+            builder.AddConfiguration(new TeacherFileConfiguration());
+            builder.AddConfiguration(new SubjectConfiguration());
+            builder.AddConfiguration(new SubjectTaughtConfiguration());
         }
     }
 }
