@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using EastSeat.TeacherMIS.Web.Data;
 using EastSeat.TeacherMIS.Web.Models.ViewModels;
@@ -52,7 +53,36 @@ namespace EastSeat.TeacherMIS.Web.Controllers
 
         public IActionResult File(string id)
         {
-            return View();
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                Guid teacherId;
+
+                if (Guid.TryParse(id, out teacherId))
+                {
+                    var model = _db.Teachers
+                        .Select(t => new TeacherViewModel{
+                            TeacherId = t.TeacherId,
+                            ConfirmationEscMinute = t.ConfirmationEscMinute,
+                            CurrentPosition = t.CurrentPosition,
+                            CurrentPositionAppMinute = t.CurrentPositionAppMinute,
+                            CurrentPositionPostingDate = t.CurrentPositionPostingDate,
+                            DateOfBirth = t.DateOfBirth,
+                            FirstAppEscMinute = t.FirstAppEscMinute,
+                            FirstProbationAppDate = t.FirstProbationAppDate,
+                            Fullname = t.Fullname,
+                            Gender = t.Gender,
+                            IppsNumber = t.IppsNumber,
+                            ProbationAppDesignation = t.ProbationAppDesignation,
+                            RegistrationNumber = t.RegistrationNumber,
+                            RowVersion = t.RowVersion,
+                            SchoolId = t.SchoolId,
+                            UtsFileNumber = t.UtsFileNumber
+                        })
+                        .SingleOrDefault(t => t.TeacherId == teacherId);
+                    return View(model);
+                }
+            }
+            return View("TeacherNotFound");
         }
 
         [HttpPost]
