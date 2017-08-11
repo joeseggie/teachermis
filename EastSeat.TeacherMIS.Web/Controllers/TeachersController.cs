@@ -1,8 +1,12 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using EastSeat.TeacherMIS.Web.Data;
+using EastSeat.TeacherMIS.Web.Helpers;
+using EastSeat.TeacherMIS.Web.Models;
 using EastSeat.TeacherMIS.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
@@ -15,8 +19,13 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             _db = databaseContext;
         }
 
-        public IActionResult Index(string search, int? page)
+        public async Task<IActionResult> Index(string search, int? page)
         {
+            if (search != null)
+            {
+                page = 1;
+            }
+
             var model = _db.Teachers
                 .Select(t => new TeacherViewModel{
                     TeacherId = t.TeacherId,
@@ -35,8 +44,10 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                     RowVersion = t.RowVersion,
                     SchoolId = t.SchoolId,
                     UtsFileNumber = t.UtsFileNumber
-                }).ToList();
-            return View(model);
+                });
+
+            int pageSize = 10;            
+            return View(await PaginatedList<TeacherViewModel>.CreateAsync(model.AsNoTracking(), page ?? 1, pageSize));
         }
 
         public IActionResult Register()
@@ -48,7 +59,56 @@ namespace EastSeat.TeacherMIS.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Register(TeacherViewModel formData)
         {
-            return View();
+            if(ModelState.IsValid)
+            {
+                var newTeacherEntry = _db.Teachers.Add(new Teacher{
+                    CurrentPosition            = formData.CurrentPosition,
+                    ConfirmationEscMinute      = formData.ConfirmationEscMinute,
+                    CurrentPositionAppMinute   = formData.CurrentPositionAppMinute,
+                    CurrentPositionPostingDate = formData.CurrentPositionPostingDate,
+                    DateOfBirth                = formData.DateOfBirth,
+                    FirstAppEscMinute          = formData.FirstAppEscMinute,
+                    FirstProbationAppDate      = formData.FirstProbationAppDate,
+                    Fullname                   = formData.Fullname,
+                    Gender                     = formData.Gender,
+                    IppsNumber                 = formData.IppsNumber,
+                    ProbationAppDesignation    = formData.ProbationAppDesignation,
+                    RegistrationNumber         = formData.RegistrationNumber,
+                    RowVersion                 = formData.RowVersion,
+                    SchoolId                   = formData.SchoolId,
+                    UtsFileNumber              = formData.UtsFileNumber
+                });
+
+                var teacherId = newTeacherEntry.Entity.TeacherId;
+
+                _db.TeacherFiles.Add(new TeacherFile{
+                    TeacherId = teacherId,
+                    RecordDate = DateTime.Now,
+                    Details = $"Teacher file opened.\n\n"+
+                                "Teacher details:\n"+
+                                $"Fullname: {formData.Fullname}\n"+
+                                $"Teacher Id: {teacherId}\n"+
+                                $"Current Position: {formData.CurrentPosition}\n"+
+                                $"Education Service Commission Minute of Appointment: {formData.ConfirmationEscMinute}\n"+
+                                $"CurrentPositionAppMinute: {formData.CurrentPositionAppMinute}\n"+
+                                $"Date of Posting to Current Position: {formData.CurrentPositionPostingDate.ToString("dd, MMMM yyyy")}\n"+
+                                $"Date of Birth: {formData.DateOfBirth.ToString("dd, MMMM yyyy")}\n"+
+                                $"Education Service Commission Minute of First Appointment: {formData.FirstAppEscMinute}\n"+
+                                $"Date of First Appointment Starting with Probation: {formData.FirstProbationAppDate.ToString("dd, MMMM yyyy")}\n"+
+                                $"Sex: {formData.Gender}\n"+
+                                $"IPPS Number: {formData.IppsNumber}\n"+
+                                $"Position When Appointed on Probation: {formData.ProbationAppDesignation}\n"+
+                                $"Registration Number: {formData.RegistrationNumber}\n"+
+                                $"School Id: {formData.SchoolId}\n"+
+                                $"UTS File Number: {formData.UtsFileNumber}\n"
+                });
+
+                _db.SaveChanges();
+
+                return RedirectToAction("file", routeValues: new{ id = teacherId.ToString() });
+            }
+
+            return View(formData);
         }
 
         public IActionResult File(string id)
@@ -89,10 +149,65 @@ namespace EastSeat.TeacherMIS.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult File(TeacherViewModel formData)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var teacherForUpdate = _db.Teachers.SingleOrDefault(t => t.TeacherId == formData.TeacherId);
+                if (teacherForUpdate == null)
+                {
+                    ModelState.AddModelError("","Teacher record doesn't exist or is invalid");
+                }
+                else
+                {
+                    teacherForUpdate.CurrentPosition            = formData.CurrentPosition            ;
+                    teacherForUpdate.ConfirmationEscMinute      = formData.ConfirmationEscMinute      ;
+                    teacherForUpdate.CurrentPositionAppMinute   = formData.CurrentPositionAppMinute   ;
+                    teacherForUpdate.CurrentPositionPostingDate = formData.CurrentPositionPostingDate ;
+                    teacherForUpdate.DateOfBirth                = formData.DateOfBirth                ;
+                    teacherForUpdate.FirstAppEscMinute          = formData.FirstAppEscMinute          ;
+                    teacherForUpdate.FirstProbationAppDate      = formData.FirstProbationAppDate      ;
+                    teacherForUpdate.Fullname                   = formData.Fullname                   ;
+                    teacherForUpdate.Gender                     = formData.Gender                     ;
+                    teacherForUpdate.IppsNumber                 = formData.IppsNumber                 ;
+                    teacherForUpdate.ProbationAppDesignation    = formData.ProbationAppDesignation    ;
+                    teacherForUpdate.RegistrationNumber         = formData.RegistrationNumber         ;
+                    teacherForUpdate.RowVersion                 = formData.RowVersion                 ;
+                    teacherForUpdate.SchoolId                   = formData.SchoolId                   ;
+                    teacherForUpdate.UtsFileNumber              = formData.UtsFileNumber              ;
+                    teacherForUpdate.RowVersion                 = formData.RowVersion;
+                    teacherForUpdate.TeacherId                  = formData.TeacherId;
+
+                    _db.Update(teacherForUpdate);
+
+                    _db.TeacherFiles.Add(new TeacherFile{
+                        TeacherId = teacherForUpdate.TeacherId,
+                        RecordDate = DateTime.Now,
+                        Details = $"Teacher file opened.\n\n"+
+                                    "Teacher details:\n"+
+                                    $"Fullname: {formData.Fullname}\n"+
+                                    $"Teacher Id: {teacherForUpdate.TeacherId}\n"+
+                                    $"Current Position: {formData.CurrentPosition}\n"+
+                                    $"Education Service Commission Minute of Appointment: {formData.ConfirmationEscMinute}\n"+
+                                    $"CurrentPositionAppMinute: {formData.CurrentPositionAppMinute}\n"+
+                                    $"Date of Posting to Current Position: {formData.CurrentPositionPostingDate.ToString("dd, MMMM yyyy")}\n"+
+                                    $"Date of Birth: {formData.DateOfBirth.ToString("dd, MMMM yyyy")}\n"+
+                                    $"Education Service Commission Minute of First Appointment: {formData.FirstAppEscMinute}\n"+
+                                    $"Date of First Appointment Starting with Probation: {formData.FirstProbationAppDate.ToString("dd, MMMM yyyy")}\n"+
+                                    $"Sex: {formData.Gender}\n"+
+                                    $"IPPS Number: {formData.IppsNumber}\n"+
+                                    $"Position When Appointed on Probation: {formData.ProbationAppDesignation}\n"+
+                                    $"Registration Number: {formData.RegistrationNumber}\n"+
+                                    $"School Id: {formData.SchoolId}\n"+
+                                    $"UTS File Number: {formData.UtsFileNumber}\n"
+                    });
+
+                    _db.SaveChanges();
+                }
+            }
+
+            return View(formData);
         }
 
-        public IActionResult School(string id, string search, int? page)
+        public async Task<IActionResult> SchoolAsync(string id, string search, int? page)
         {
             if(!string.IsNullOrWhiteSpace(id))
             {
@@ -100,6 +215,11 @@ namespace EastSeat.TeacherMIS.Web.Controllers
 
                 if (Guid.TryParse(id, out schoolId))
                 {
+                    if(search != null)
+                    {
+                        page = 1;
+                    }
+
                     var model = _db.Teachers
                         .Where(t => t.SchoolId == schoolId)
                         .Select(t => new TeacherViewModel{
@@ -119,15 +239,16 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                             RowVersion = t.RowVersion,
                             SchoolId = t.SchoolId,
                             UtsFileNumber = t.UtsFileNumber
-                        }).ToList();
-
-                    return View(model);
+                        });
+                    
+                    int pageSize = 10;
+                    return View(await PaginatedList<TeacherViewModel>.CreateAsync(model.AsNoTracking(), page ?? 1, pageSize));
                 }
             }
             return View("SchoolNotFound");
         }
 
-        public IActionResult Subject(string id, string search, int? page)
+        public async Task<IActionResult> SubjectAsync(string id, string search, int? page)
         {
             if(!string.IsNullOrWhiteSpace(id))
             {
@@ -135,6 +256,11 @@ namespace EastSeat.TeacherMIS.Web.Controllers
 
                 if (Guid.TryParse(id, out subjectId))
                 {
+                    if(search != null)
+                    {
+                        page = 1;
+                    }
+
                     var model = _db.SubjectsTaught
                         .Where(t => t.SubjectId == subjectId)
                         .Select(t => new TeacherViewModel{
@@ -154,9 +280,10 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                             RowVersion                 = t.Teacher.RowVersion,
                             SchoolId                   = t.Teacher.SchoolId,
                             UtsFileNumber              = t.Teacher.UtsFileNumber
-                        }).ToList();
-
-                    return View(model);
+                        });
+                    
+                    int pageSize = 10;
+                    return View(await PaginatedList<TeacherViewModel>.CreateAsync(model.AsNoTracking(), page ?? 1, pageSize));
                 }
             }
             return View("SubjectNotFound");

@@ -15,7 +15,7 @@ namespace EastSeat.TeacherMIS.Web.Models.ViewModels
         [Display(Name="Sex")]
         public string Gender { get; set; }
         [Required()]
-        [Display(Name="UTS Number")]
+        [Display(Name="UTS File Number")]
         public string UtsFileNumber { get; set; }
         [Required()]
         [Display(Name="Date of Birth")]
