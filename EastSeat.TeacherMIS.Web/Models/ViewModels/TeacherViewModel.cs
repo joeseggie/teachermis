@@ -9,7 +9,7 @@ namespace EastSeat.TeacherMIS.Web.Models.ViewModels
         [Display(Name="Teacher Id")]
         public Guid TeacherId { get; set; }
         [Required()]
-        [Display(Name="Name")]
+        [Display(Name="Fullname")]
         public string Fullname { get; set; }
         [Required()]
         [Display(Name="Sex")]
