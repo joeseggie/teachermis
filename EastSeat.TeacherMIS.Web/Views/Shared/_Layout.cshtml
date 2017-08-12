@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - EastSeat.TeacherMIS.Web</title>
 
     <environment names="Development">
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
@@ -17,7 +18,7 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -26,14 +27,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">EastSeat.TeacherMIS.Web</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Teacher MIS</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
@@ -46,16 +42,16 @@
                         <div class="panel-heading" role="tab" id="headingOne">
                             <h4 class="panel-title">
                                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Messages
+                                    Teachers
                                 </a>
                             </h4>
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                             <div class="list-group">
                                 <ul class="list-group">
-                                    <li class="list-group-item">Inbox</li>
-                                    <li class="list-group-item">Sent Messages</li>
-                                    <li class="list-group-item">Send System Message</li>
+                                    <li class="list-group-item">Register Teacher</li>
+                                    <li class="list-group-item">Teachers' List</li>
+                                    <li class="list-group-item">Teacher's File</li>
                                     <li class="list-group-item">Send Email</li>
                                     <li class="list-group-item">Send SMS</li>
                                     <li class="list-group-item">Archive</li>
@@ -64,30 +60,10 @@
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingSix">
-                            <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                                    Job Notices
-                                </a>
-                            </h4>
-                            </div>
-                            <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
-                            <div class="list-group">
-                                <ul class="list-group">
-                                    <li class="list-group-item">New Job</li>
-                                    <li class="list-group-item">Apply for Job</li>
-                                    <li class="list-group-item">Saved Jobs</li>
-                                    <li class="list-group-item">Relevant Jobs</li>
-                                    <li class="list-group-item">Job Application Status</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingTwo">
                             <h4 class="panel-title">
                                 <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    Interviews
+                                    Schools
                                 </a>
                             </h4>
                             </div>
@@ -106,7 +82,7 @@
                         <div class="panel-heading" role="tab" id="headingThree">
                             <h4 class="panel-title">
                                 <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Approvals
+                                    Subjects
                                 </a>
                             </h4>
                             </div>
@@ -125,144 +101,11 @@
                         <div class="panel-heading" role="tab" id="headingFour">
                             <h4 class="panel-title">
                                 <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                    Forms
+                                    Admin
                                 </a>
                             </h4>
                             </div>
                             <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
-                            <div class="list-group">
-                                <ul class="list-group">
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingFive">
-                            <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                    Users
-                                </a>
-                            </h4>
-                            </div>
-                            <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
-                            <div class="list-group">
-                                <ul class="list-group">
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingSeven">
-                            <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                                    Permissions
-                                </a>
-                            </h4>
-                            </div>
-                            <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
-                            <div class="list-group">
-                                <ul class="list-group">
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingEight">
-                            <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                                    Reports
-                                </a>
-                            </h4>
-                            </div>
-                            <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
-                            <div class="list-group">
-                                <ul class="list-group">
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingNine">
-                            <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
-                                    Job Description
-                                </a>
-                            </h4>
-                            </div>
-                            <div id="collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
-                            <div class="list-group">
-                                <ul class="list-group">
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingTen">
-                            <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
-                                    School Profile
-                                </a>
-                            </h4>
-                            </div>
-                            <div id="collapseTen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTen">
-                            <div class="list-group">
-                                <ul class="list-group">
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingEleven">
-                            <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
-                                    Logout
-                                </a>
-                            </h4>
-                            </div>
-                            <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
-                            <div class="list-group">
-                                <ul class="list-group">
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingTwelve">
-                            <h4 class="panel-title">
-                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
-                                    Reports
-                                </a>
-                            </h4>
-                            </div>
-                            <div id="collapseTwelve" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwelve">
                             <div class="list-group">
                                 <ul class="list-group">
                                     <li class="list-group-item">item 1</li>
@@ -286,8 +129,8 @@
     </div>
 
     <environment names="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment names="Staging,Production">

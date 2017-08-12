@@ -48,3 +48,11 @@ textarea {
         display: none;
     }
 }
+
+#borderimg {
+    background-image: url("/images/flagbg.png");
+    background-repeat: repeat-x;
+    margin-top: 4px;
+    height: 6px;
+    width: 100%;
+}
