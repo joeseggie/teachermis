@@ -90,3 +90,20 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <link rel="stylesheet" href="~/lib/datetimepicker/build/jquery.datetimepicker.min.css" />
+    <script src='~/lib/datetimepicker/build/jquery.datetimepicker.full.js'></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#CurrentPositionPostingDate').datetimepicker({
+                timepicker : false,
+                format : 'MM/dd/yyyy'
+            });
+            $('#DateOfBirth').datetimepicker({
+                timepicker : false,
+                format : 'MM/dd/yyyy'
+            });
+        });
+    </script>
+}
