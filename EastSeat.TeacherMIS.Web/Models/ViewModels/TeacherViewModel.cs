@@ -51,5 +51,8 @@ namespace EastSeat.TeacherMIS.Web.Models.ViewModels
         [Display(Name="Date of Posting to Current Position")]
         public DateTime CurrentPositionPostingDate { get; set; }
         public byte[] RowVersion { get; set; }
+
+        [Display(Name="School")]
+        public string SchoolName { get; set; }
     }
 }

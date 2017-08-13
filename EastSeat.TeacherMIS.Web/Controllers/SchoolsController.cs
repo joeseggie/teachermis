@@ -19,14 +19,22 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             _db = databaseContext;
         }
 
-        public async Task<IActionResult> IndexAsync(string search, int? page)
+        public async Task<IActionResult> Index(string search, int? page)
         {
             if (search != null)
             {
                 page = 1;
             }
 
+            if(string.IsNullOrWhiteSpace(search))
+            {
+                return View(null);
+            }
+
+            ViewData["search"] = search;
+
             var model = _db.Schools
+                .Where(s => s.Name.ToLower().Contains(search.ToLower()))
                 .Select(s => new SchoolViewModel{
                     SchoolId = s.SchoolId,
                     Name = s.Name,
@@ -48,12 +56,12 @@ namespace EastSeat.TeacherMIS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Schools.Add(new School{
+                var registeredSchoolEntry = _db.Schools.Add(new School{
                     Name = formData.Name
                 });
                 _db.SaveChanges();
 
-                return RedirectToAction("index");
+                return RedirectToAction("school", routeValues: new { id = registeredSchoolEntry.Entity.SchoolId });
             }
 
             return View(formData);
@@ -87,15 +95,19 @@ namespace EastSeat.TeacherMIS.Web.Controllers
         {
             if(ModelState.IsValid)
             {
-                var schoolForUpdate = _db.Schools.Find(formData.SchoolId);
+                var schoolForUpdate = _db.Schools.SingleOrDefault(s => s.SchoolId == formData.SchoolId);
                 if (schoolForUpdate != null)
                 {
                     schoolForUpdate.Name = formData.Name;
                     _db.Update(schoolForUpdate);
 
                     _db.SaveChanges();
-                }
 
+                    TempData["Message"] = "Changes saved successfully";
+
+                    return RedirectToAction("school", routeValues: new { id = schoolForUpdate.SchoolId });
+                }
+                
                 ModelState.AddModelError("","School doesn't exist or record is invalid");
             }
 

@@ -6,6 +6,7 @@ using EastSeat.TeacherMIS.Web.Helpers;
 using EastSeat.TeacherMIS.Web.Models;
 using EastSeat.TeacherMIS.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
@@ -26,7 +27,13 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                 page = 1;
             }
 
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return View(null);
+            }
+
             var model = _db.Teachers
+                .Where(t => t.Fullname.ToLower().Contains(search.ToLower()) || t.UtsFileNumber.ToLower().Contains(search.ToLower()) || t.IppsNumber.Contains(search.ToLower()))
                 .Select(t => new TeacherViewModel{
                     TeacherId = t.TeacherId,
                     ConfirmationEscMinute = t.ConfirmationEscMinute,
@@ -43,6 +50,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                     RegistrationNumber = t.RegistrationNumber,
                     RowVersion = t.RowVersion,
                     SchoolId = t.SchoolId,
+                    SchoolName = t.School.Name,
                     UtsFileNumber = t.UtsFileNumber
                 });
 
@@ -52,6 +60,11 @@ namespace EastSeat.TeacherMIS.Web.Controllers
 
         public IActionResult Register()
         {
+            ViewData["Schools"] = _db.Schools
+                .Select(l => new SelectListItem{
+                    Value = l.SchoolId.ToString(),
+                    Text = l.Name
+                });
             return View();
         }
 
@@ -108,6 +121,11 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                 return RedirectToAction("file", routeValues: new{ id = teacherId.ToString() });
             }
 
+            ViewData["Schools"] = _db.Schools
+                .Select(l => new SelectListItem{
+                    Value = l.SchoolId.ToString(),
+                    Text = l.Name
+                });
             return View(formData);
         }
 
@@ -207,7 +225,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             return View(formData);
         }
 
-        public async Task<IActionResult> SchoolAsync(string id, string search, int? page)
+        public async Task<IActionResult> School(string id, string search, int? page)
         {
             if(!string.IsNullOrWhiteSpace(id))
             {
@@ -248,7 +266,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             return View("SchoolNotFound");
         }
 
-        public async Task<IActionResult> SubjectAsync(string id, string search, int? page)
+        public async Task<IActionResult> Subject(string id, string search, int? page)
         {
             if(!string.IsNullOrWhiteSpace(id))
             {

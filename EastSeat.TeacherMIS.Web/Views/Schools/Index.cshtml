@@ -1,0 +1,52 @@
+@model IEnumerable<SchoolViewModel>
+
+@{
+    ViewData["Title"] = "Schools' List";
+}
+
+<h2>Schools' List</h2>
+<hr>
+
+<form asp-action="index" asp-controller="schools" method="POST" role="form">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="input-group">
+            <span class="input-group-btn">
+                <input class="btn btn-primary" value="Search" type="submit" />
+            </span>
+            <input type="text" class="form-control" id="search" name="search" value=@ViewData["search"] placeholder="Search for school using school name">
+            </div>
+        </div>
+    </div>
+</form>
+
+<br>
+
+@if(Model != null)
+{
+    <table class="table table-condensed table-stripped table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th class="col-xs-12">School's Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var school in Model)
+            {
+                <tr>
+                    <td class="col-xs-12"><a asp-action="school" asp-route-id=@school.SchoolId>@school.Name</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $('#collapseOne').removeClass('in');
+        $('#collapseTwo').addClass('in');
+        $('#collapseThree').removeClass('in');
+        $('#collapseFour').removeClass('in');
+    </script>
+}

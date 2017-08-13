@@ -49,12 +49,18 @@
                             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                             <div class="list-group">
                                 <ul class="list-group">
-                                    <li class="list-group-item">Register Teacher</li>
-                                    <li class="list-group-item">Teachers' List</li>
-                                    <li class="list-group-item">Teacher's File</li>
-                                    <li class="list-group-item">Send Email</li>
-                                    <li class="list-group-item">Send SMS</li>
-                                    <li class="list-group-item">Archive</li>
+                                    <li class="list-group-item">
+                                        <a asp-action="index" asp-controller="teachers">Teachers' List</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a asp-action="register" asp-controller="teachers">Register Teacher</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a asp-action="subject" asp-controller="teachers">Subject Teachers</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a asp-action="school" asp-controller="teachers">School Teachers</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -70,10 +76,12 @@
                             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                             <div class="list-group">
                                 <ul class="list-group">
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
+                                    <li class="list-group-item">
+                                        <a asp-action="index" asp-controller="schools">Schools' List</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a asp-action="register" asp-controller="schools">Register School</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -89,10 +97,8 @@
                             <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                             <div class="list-group">
                                 <ul class="list-group">
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
+                                    <li class="list-group-item">Add Subject</li>
+                                    <li class="list-group-item">Subjects' List</li>
                                 </ul>
                             </div>
                         </div>
@@ -108,10 +114,8 @@
                             <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
                             <div class="list-group">
                                 <ul class="list-group">
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
-                                    <li class="list-group-item">item 1</li>
+                                    <li class="list-group-item">Users</li>
+                                    <li class="list-group-item">Roles</li>
                                 </ul>
                             </div>
                         </div>

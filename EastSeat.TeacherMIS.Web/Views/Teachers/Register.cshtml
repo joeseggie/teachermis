@@ -1,0 +1,92 @@
+@model TeacherViewModel
+
+@{
+    ViewData["Title"] = "Register Teacher";
+    var SchoolList = (IEnumerable<SelectListItem>)ViewData["Schools"];
+}
+
+<h2>Register Teacher</h2>
+<hr>
+
+
+<div class="col-xs-offset-1 col-xs-9">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Teacher Details
+        </div>
+        <div class="panel-body">
+            <form asp-action="register" asp-controller="teachers" method="POST" role="form">
+                <div class="form-horizontal" style="padding-left:10px; padding-right:10px;">
+                    <div class="form-group">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="Fullname"></label>
+                        <input type="text" class="form-control col-xs-10" asp-for="Fullname" placeholder="Teacher fullname" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="Gender"></label>
+                        <select asp-for="Gender" class="form-control">
+                            <option>--- Choose Sex ---</option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="UtsFileNumber"></label>
+                        <input type="text" class="form-control col-xs-10" asp-for="UtsFileNumber" placeholder="UTS File Number" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="DateOfBirth"></label>
+                        <input type="text" class="form-control col-xs-10" asp-for="DateOfBirth" placeholder="Date of Birth" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="RegistrationNumber"></label>
+                        <input type="text" class="form-control col-xs-10" asp-for="RegistrationNumber" placeholder="Registration Number" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="IppsNumber"></label>
+                        <input type="text" class="form-control col-xs-10" asp-for="IppsNumber" placeholder="IPPS Number" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="FirstProbationAppDate"></label>
+                        <input type="text" class="form-control col-xs-10" asp-for="FirstProbationAppDate" placeholder="Date of first appointment starting with probation" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="ProbationAppDesignation"></label>
+                        <input type="text" class="form-control col-xs-10" asp-for="ProbationAppDesignation" placeholder="Postion when appointed on probation" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="FirstAppEscMinute"></label>
+                        <input type="text" class="form-control col-xs-10" asp-for="FirstAppEscMinute" placeholder="Education Service Commission Minute of First Appointment" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="ConfirmationEscMinute"></label>
+                        <input type="text" class="form-control col-xs-10" asp-for="ConfirmationEscMinute" placeholder="Education Service Commission Minute of Appointment" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="CurrentPosition"></label>
+                        <input type="text" class="form-control col-xs-10" asp-for="CurrentPosition" placeholder="Current Position" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="CurrentPositionAppMinute"></label>
+                        <input type="text" class="form-control col-xs-10" asp-for="CurrentPositionAppMinute" placeholder="Education Service Commission Minute of Current Position" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="SchoolId"></label>
+                        <select class="col-xs-10 form-control" asp-for="SchoolId" asp-items="@SchoolList">
+                            <option>--- Select School ---</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="CurrentPositionPostingDate"></label>
+                        <input type="text" class="form-control col-xs-10" asp-for="CurrentPositionPostingDate" placeholder="Date of Posting to Current Position" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-danger" value="Register Teacher" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

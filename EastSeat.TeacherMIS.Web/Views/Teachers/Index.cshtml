@@ -1,0 +1,48 @@
+@model IEnumerable<TeacherViewModel>
+
+@{
+    ViewData["Title"] = "Teachers' List";
+}
+
+<h2>Teachers' List</h2>
+<hr>
+
+<form asp-action="index" asp-controller="teachers" method="POST" role="form">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="input-group">
+            <span class="input-group-btn">
+                <input class="btn btn-primary" value="Search" type="submit" />
+            </span>
+            <input type="text" class="form-control" id="search" name="search" placeholder="Search for teacher using name, UTS, IPPS Number">
+            </div>
+        </div>
+    </div>
+</form>
+
+<br>
+
+@if(Model != null)
+{
+    <table class="table table-condensed table-stripped table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th class="col-md-3 col-sm-6 col-xs-12">Teacher's Name</th>
+                <th class="col-md-3 col-sm-hide col-xs-hide">UTS File Number</th>
+                <th class="col-md-3 col-sm-hide col-xs-hide">IPPS Number</th>
+                <th class="col-md-3 col-sm-6 col-xs-hide">School</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var teacher in Model)
+            {
+                <tr>
+                    <td class="col-md-3 col-sm-6 col-xs-12"><a asp-action="file">teacher.Fullname</a></td>
+                    <td class="col-md-3 col-sm-hide col-xs-hide">teacher.UtsFileNumber</td>
+                    <td class="col-md-3 col-sm-hide col-xs-hide">teacher.IppsNumber</td>
+                    <td class="col-md-3 col-sm-6 col-xs-hide"><a asp-action="school" asp-controller="schools">teacher.SchoolName</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,48 @@
+@model IEnumerable<TeacherViewModel>
+
+@{
+    ViewData["Title"] = "School Teachers";
+}
+
+<h2>School Teachers</h2>
+<hr>
+
+<form asp-action="school" asp-controller="teachers" method="POST" role="form">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="input-group">
+            <span class="input-group-btn">
+                <input class="btn btn-primary" value="Search" type="submit" />
+            </span>
+            <input type="text" class="form-control" id="search" name="search" placeholder="Enter school to return teachers">
+            </div>
+        </div>
+    </div>
+</form>
+
+<br>
+
+<table class="table table-condensed table-stripped table-bordered table-responsive">
+    <thead>
+        <tr>
+            <th class="col-md-3 col-sm-6 col-xs-12">Teacher's Name</th>
+            <th class="col-md-3 col-sm-hide col-xs-hide">UTS File Number</th>
+            <th class="col-md-3 col-sm-hide col-xs-hide">IPPS Number</th>
+            <th class="col-md-3 col-sm-6 col-xs-hide">School</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="col-md-3 col-sm-6 col-xs-12">Teacher's Name</td>
+            <td class="col-md-3 col-sm-hide col-xs-hide">UTS File Number</td>
+            <td class="col-md-3 col-sm-hide col-xs-hide">IPPS Number</td>
+            <td class="col-md-3 col-sm-6 col-xs-hide">School</td>
+        </tr>
+        <tr>
+            <td class="col-md-3 col-sm-6 col-xs-12">Teacher's Name</td>
+            <td class="col-md-3 col-sm-hide col-xs-hide">UTS File Number</td>
+            <td class="col-md-3 col-sm-hide col-xs-hide">IPPS Number</td>
+            <td class="col-md-3 col-sm-6 col-xs-hide">School</td>
+        </tr>
+    </tbody>
+</table>

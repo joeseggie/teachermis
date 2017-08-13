@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using EastSeat.TeacherMIS.Web.Data;
 using EastSeat.TeacherMIS.Web.Models;
 using EastSeat.TeacherMIS.Web.Services;
+using Microsoft.AspNetCore.Session;
 
 namespace EastSeat.TeacherMIS.Web
 {
@@ -48,6 +49,9 @@ namespace EastSeat.TeacherMIS.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddMemoryCache();
+            services.AddSession();
+
             services.AddMvc();
 
             // Add application services.
@@ -75,6 +79,8 @@ namespace EastSeat.TeacherMIS.Web
             app.UseStaticFiles();
 
             app.UseIdentity();
+
+            app.UseSession();
 
             // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
 
