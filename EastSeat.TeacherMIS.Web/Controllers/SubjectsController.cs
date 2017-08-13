@@ -6,10 +6,12 @@ using EastSeat.TeacherMIS.Web.Helpers;
 using EastSeat.TeacherMIS.Web.Models;
 using EastSeat.TeacherMIS.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
+    [Authorize]
     public class SubjectsController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -19,20 +21,27 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             _db = databaseContext;
         }
 
-        public async Task<IActionResult> IndexAsync(string search, int? page)
+        public async Task<IActionResult> Index(string search, int? page)
         {
             if (search != null)
             {
                 page = 1;
             }
 
+            if(string.IsNullOrWhiteSpace(search))
+            {
+                return View(null);
+            }
+
             var model = _db.Subjects
+                .Where(s => s.Description.ToLower().Contains(search.ToLower()))
                 .Select(s => new SubjectViewModel{
                     SubjectId = s.SubjectId,
                     Description = s.Description,
                     RowVersion = s.RowVersion
                 });
 
+            ViewData["search"] = search;
             int pageSize = 10;            
             return View(await PaginatedList<SubjectViewModel>.CreateAsync(model.AsNoTracking(), page ?? 1, pageSize));
         }
@@ -48,12 +57,12 @@ namespace EastSeat.TeacherMIS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Subjects.Add(new Subject{
+                var resultEntry = _db.Subjects.Add(new Subject{
                     Description = formData.Description
                 });
                 _db.SaveChanges();
 
-                return RedirectToAction("index");
+                return RedirectToAction("details", routeValues: new { id = resultEntry.Entity.SubjectId });
             }
 
             return View(formData);
@@ -87,13 +96,15 @@ namespace EastSeat.TeacherMIS.Web.Controllers
         {
             if(ModelState.IsValid)
             {
-                var subjectForUpdate = _db.Subjects.Find(formData.SubjectId);
+                var subjectForUpdate = _db.Subjects.SingleOrDefault(s => s.SubjectId == formData.SubjectId);
                 if (subjectForUpdate != null)
                 {
                     subjectForUpdate.Description = formData.Description;
                     _db.Update(subjectForUpdate);
 
                     _db.SaveChanges();
+
+                    return RedirectToAction("details", routeValues: new { id = subjectForUpdate.SubjectId });
                 }
 
                 ModelState.AddModelError("","Subject doesn't exist or record is invalid");

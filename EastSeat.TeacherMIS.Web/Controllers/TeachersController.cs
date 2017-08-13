@@ -6,11 +6,13 @@ using EastSeat.TeacherMIS.Web.Helpers;
 using EastSeat.TeacherMIS.Web.Models;
 using EastSeat.TeacherMIS.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
+    [Authorize]
     public class TeachersController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -117,6 +119,8 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                 });
 
                 _db.SaveChanges();
+
+                TempData["Message"] = "Teacher registered successfully";
 
                 return RedirectToAction("file", routeValues: new{ id = teacherId.ToString() });
             }

@@ -6,10 +6,12 @@ using EastSeat.TeacherMIS.Web.Helpers;
 using EastSeat.TeacherMIS.Web.Models;
 using EastSeat.TeacherMIS.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
+    [Authorize]
     public class SchoolsController : Controller
     {
         private readonly ApplicationDbContext _db;

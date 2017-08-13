@@ -37,10 +37,10 @@
             @foreach(var teacher in Model)
             {
                 <tr>
-                    <td class="col-md-3 col-sm-6 col-xs-12"><a asp-action="file">teacher.Fullname</a></td>
-                    <td class="col-md-3 col-sm-hide col-xs-hide">teacher.UtsFileNumber</td>
-                    <td class="col-md-3 col-sm-hide col-xs-hide">teacher.IppsNumber</td>
-                    <td class="col-md-3 col-sm-6 col-xs-hide"><a asp-action="school" asp-controller="schools">teacher.SchoolName</a></td>
+                    <td class="col-md-3 col-sm-6 col-xs-12"><a asp-action="file" asp-route-Id=@teacher.TeacherId>@teacher.Fullname</a></td>
+                    <td class="col-md-3 col-sm-hide col-xs-hide">@teacher.UtsFileNumber</td>
+                    <td class="col-md-3 col-sm-hide col-xs-hide">@teacher.IppsNumber</td>
+                    <td class="col-md-3 col-sm-6 col-xs-hide"><a asp-action="school" asp-controller="schools" asp-route-Id=@teacher.SchoolId>@teacher.SchoolName</a></td>
                 </tr>
             }
         </tbody>

@@ -1,7 +1,7 @@
-@model SchoolViewModel
+@model SubjectViewModel
 
 @{
-    ViewData["Title"] = "School Details";
+    ViewData["Title"] = "Subject Details";
     var message = string.Empty;
     if(TempData["Message"] != null)
     {
@@ -9,19 +9,19 @@
     }
 }
 
-<h2>School Details</h2>
+<h2>Subject Details</h2>
 <hr>
 
 
 <div class="col-xs-offset-1 col-xs-9">
     <div class="panel panel-default">
         <div class="panel-heading">
-            School Details
+            Subject Details
         </div>
         <div class="panel-body">
-            <form asp-action="school" asp-controller="schools" method="POST" role="form">
+            <form asp-action="details" asp-controller="subjects" method="POST" role="form">
                 <div class="form-horizontal" style="padding-left:10px; padding-right:10px;">
-                    <input type="hidden" asp-for="SchoolId" />
+                    <input type="hidden" asp-for="SubjectId" />
                     <input type="hidden" asp-for="RowVersion" />
 
                     <div asp-validation-summary="All" class="text-danger"></div>
@@ -31,8 +31,8 @@
                     }
 
                     <div class="form-group">
-                        <label class="control-label" asp-for="Name"></label>
-                        <input type="text" class="form-control col-xs-10" asp-for="Name" placeholder="Name" />
+                        <label class="control-label" asp-for="Description"></label>
+                        <input type="text" class="form-control col-xs-10" asp-for="Description" placeholder="Description" />
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary" value="Save Changes" />
@@ -47,8 +47,8 @@
 {
     <script type="text/javascript">
         $('#collapseOne').removeClass('in');
-        $('#collapseTwo').addClass('in');
-        $('#collapseThree').removeClass('in');
+        $('#collapseTwo').removeClass('in');
+        $('#collapseThree').addClass('in');
         $('#collapseFour').removeClass('in');
     </script>
 }

@@ -2,6 +2,11 @@
 
 @{
     ViewData["Title"] = "Teacher File";
+    var message = string.Empty;
+    if(TempData["Message"] != null)
+    {
+        message = TempData["Message"].ToString();
+    }
 }
 
 <h2>@Model.Fullname's File</h2>
@@ -22,9 +27,11 @@
                 <input type="hidden" asp-for="RowVersion" />
                 
                 <div class="form-horizontal" style="padding-left:10px; padding-right:10px;">
-                    <div class="form-group">
-                        <div asp-validation-summary="All" class="text-danger"></div>
-                    </div>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    @if(!string.IsNullOrWhiteSpace(message))
+                    {
+                        <div class="alert alert-success">@message</div>
+                    }
                     <div class="form-group">
                         <label class="control-label" asp-for="Fullname"></label>
                         <input type="text" class="form-control col-xs-10" asp-for="Fullname" placeholder="Teacher fullname" />

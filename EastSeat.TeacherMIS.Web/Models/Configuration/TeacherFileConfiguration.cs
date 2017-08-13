@@ -20,8 +20,8 @@ namespace EastSeat.TeacherMIS.Web.Models.Configuration
             entity.Property(f => f.Details)
                 .IsRequired()
                 .IsUnicode(false)
-                .HasMaxLength(500)
-                .ForSqlServerHasColumnType("varchar(500)");
+                .HasMaxLength(2000)
+                .ForSqlServerHasColumnType("varchar(2000)");
 
             entity.Property(f => f.RowVersion)
                 .IsRequired()

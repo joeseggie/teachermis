@@ -55,12 +55,12 @@
                                     <li class="list-group-item">
                                         <a asp-action="register" asp-controller="teachers">Register Teacher</a>
                                     </li>
-                                    <li class="list-group-item">
+                                    <!-- <li class="list-group-item">
                                         <a asp-action="subject" asp-controller="teachers">Subject Teachers</a>
                                     </li>
                                     <li class="list-group-item">
                                         <a asp-action="school" asp-controller="teachers">School Teachers</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>
@@ -97,13 +97,17 @@
                             <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                             <div class="list-group">
                                 <ul class="list-group">
-                                    <li class="list-group-item">Add Subject</li>
-                                    <li class="list-group-item">Subjects' List</li>
+                                    <li class="list-group-item">
+                                        <a asp-action="index" asp-controller="subjects">Subjects' List</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a asp-action="new" asp-controller="subjects">Add Subject</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-default">
+                    <!-- <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingFour">
                             <h4 class="panel-title">
                                 <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
@@ -119,7 +123,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="col-lg-10">

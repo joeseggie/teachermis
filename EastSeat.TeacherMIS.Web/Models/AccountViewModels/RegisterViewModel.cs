@@ -9,6 +9,18 @@ namespace EastSeat.TeacherMIS.Web.Models.AccountViewModels
     public class RegisterViewModel
     {
         [Required]
+        [StringLength(50)]
+        public string Firstname { get; set; }
+        
+        [Required]
+        [StringLength(50)]
+        public string Lastname { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        public string Username { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

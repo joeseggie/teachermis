@@ -17,9 +17,8 @@
         <div class="panel-body">
             <form asp-action="register" asp-controller="teachers" method="POST" role="form">
                 <div class="form-horizontal" style="padding-left:10px; padding-right:10px;">
-                    <div class="form-group">
-                        <div asp-validation-summary="All" class="text-danger"></div>
-                    </div>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    
                     <div class="form-group">
                         <label class="control-label" asp-for="Fullname"></label>
                         <input type="text" class="form-control col-xs-10" asp-for="Fullname" placeholder="Teacher fullname" />
@@ -97,12 +96,13 @@
     <script type="text/javascript">
         $(function () {
             $('#CurrentPositionPostingDate').datetimepicker({
-                timepicker : false,
-                format : 'MM/dd/yyyy'
+                timepicker : false
             });
             $('#DateOfBirth').datetimepicker({
-                timepicker : false,
-                format : 'MM/dd/yyyy'
+                timepicker : false
+            });
+            $('#FirstProbationAppDate').datetimepicker({
+                timepicker : false
             });
         });
     </script>
