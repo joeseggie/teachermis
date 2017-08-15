@@ -23,6 +23,7 @@ namespace EastSeat.TeacherMIS.Web.Data
         public DbSet<TeacherFile> TeacherFiles { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<SubjectTaught> SubjectsTaught { get; set; }
+        public DbSet<SubjectCategory> SubjectCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -31,6 +32,7 @@ namespace EastSeat.TeacherMIS.Web.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
 
+            builder.AddConfiguration(new SubjectCategoryConfiguration());
             builder.AddConfiguration(new HeadmasterConfiguration());
             builder.AddConfiguration(new TeacherConfiguration());
             builder.AddConfiguration(new SchoolConfiguration());

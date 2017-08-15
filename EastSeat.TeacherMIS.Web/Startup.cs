@@ -109,6 +109,12 @@ namespace EastSeat.TeacherMIS.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "subjectcategory",
+                    template: "subjects/categories/{action=Index}/{id?}",
+                    defaults: new { controller = "SubjectCategory" }
+                );
+
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });

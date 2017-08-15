@@ -13,6 +13,10 @@ namespace EastSeat.TeacherMIS.Web.Models.Configuration
             entity.Property(j => j.SubjectId)
                 .ValueGeneratedOnAdd();
 
+            entity.HasOne(j => j.SubjectCategory)
+                .WithMany(c => c.Subjects)
+                .HasForeignKey(j => j.SubjectCategoryId);
+
             entity.Property(j => j.Description)
                 .IsRequired()
                 .IsUnicode(false)

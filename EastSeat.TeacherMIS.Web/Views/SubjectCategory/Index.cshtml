@@ -1,0 +1,41 @@
+@model IEnumerable<SubjectCategoryViewModel>
+
+@{
+    ViewData["Title"] = "Subject Categories";
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr>
+
+<a asp-route="subjectcategory" asp-route-action="add" class="btn btn-default">Add Subject Category</a>
+
+<br><br>
+
+@if(Model != null)
+{
+    <table class="table table-condensed table-stripped table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th class="col-xs-12">Subject Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var subjectCategory in Model)
+            {
+                <tr>
+                    <td class="col-xs-12"><a asp-route="subjectcategory" asp-route-Id=@subjectCategory.Stub asp-route-action="category">@subjectCategory.Description</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $('#collapseOne').removeClass('in');
+        $('#collapseTwo').removeClass('in');
+        $('#collapseThree').addClass('in');
+        $('#collapseFour').removeClass('in');
+    </script>
+}
