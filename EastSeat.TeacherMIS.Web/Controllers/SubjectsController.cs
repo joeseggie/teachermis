@@ -8,6 +8,7 @@ using EastSeat.TeacherMIS.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
@@ -38,6 +39,9 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                 .Select(s => new SubjectViewModel{
                     SubjectId = s.SubjectId,
                     Description = s.Description,
+                    SubjectCategoryId = s.SubjectCategoryId == null ? Guid.Empty : Guid.Parse(s.SubjectCategoryId.ToString()),
+                    SubjectCategory = s.SubjectCategory == null ? string.Empty : s.SubjectCategory.Description,
+                    SubjectCategoryStub = s.SubjectCategory.Stub,
                     RowVersion = s.RowVersion
                 });
 
@@ -46,43 +50,50 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             return View(await PaginatedList<SubjectViewModel>.CreateAsync(model.AsNoTracking(), page ?? 1, pageSize));
         }
 
-        public IActionResult New()
+        public async Task<IActionResult> New()
         {
+            await LoadSubjectCategoriesSelectItemListAsync();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult New(SubjectViewModel formData)
+        public async Task<IActionResult> New(SubjectViewModel formData)
         {
             if (ModelState.IsValid)
             {
-                var resultEntry = _db.Subjects.Add(new Subject{
-                    Description = formData.Description
+                var resultEntry = await _db.Subjects.AddAsync(new Subject{
+                    Description = formData.Description,
+                    SubjectCategoryId = formData.SubjectCategoryId
                 });
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
 
                 return RedirectToAction("details", routeValues: new { id = resultEntry.Entity.SubjectId });
             }
 
+            await LoadSubjectCategoriesSelectItemListAsync();
             return View(formData);
         }
 
-        public IActionResult Details(string id)
+        public async Task<IActionResult> Details(string id)
         {
             if (!string.IsNullOrWhiteSpace(id))
             {
                 Guid subjectId;
                 if(Guid.TryParse(id, out subjectId))
                 {
-                    var model = _db.Subjects
+                    var model = await _db.Subjects
                         .Select(s => new SubjectViewModel{
                             SubjectId = s.SubjectId,
                             Description = s.Description,
+                            SubjectCategoryId = s.SubjectCategoryId == null ? Guid.Empty : Guid.Parse(s.SubjectCategoryId.ToString()),
+                            SubjectCategory = s.SubjectCategory == null ? string.Empty : s.SubjectCategory.Description,
+                            SubjectCategoryStub = s.SubjectCategory.Stub,
                             RowVersion = s.RowVersion
                         })
-                        .SingleOrDefault(s => s.SubjectId == subjectId);
+                        .SingleOrDefaultAsync(s => s.SubjectId == subjectId);
 
+                    await LoadSubjectCategoriesSelectItemListAsync();
                     return View(model);
                 }
             }
@@ -92,7 +103,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Details(SubjectViewModel formData)
+        public async Task<IActionResult> Details(SubjectViewModel formData)
         {
             if(ModelState.IsValid)
             {
@@ -100,9 +111,13 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                 if (subjectForUpdate != null)
                 {
                     subjectForUpdate.Description = formData.Description;
+                    subjectForUpdate.SubjectCategoryId = formData.SubjectCategoryId;
+
                     _db.Update(subjectForUpdate);
 
-                    _db.SaveChanges();
+                    await _db.SaveChangesAsync();
+
+                    TempData["Message"] = "Subject details updated successfully.";
 
                     return RedirectToAction("details", routeValues: new { id = subjectForUpdate.SubjectId });
                 }
@@ -110,7 +125,18 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                 ModelState.AddModelError("","Subject doesn't exist or record is invalid");
             }
 
+            await LoadSubjectCategoriesSelectItemListAsync();
             return View(formData);
+        }
+
+        private async Task LoadSubjectCategoriesSelectItemListAsync()
+        {
+            var subjectCategoryList = _db.SubjectCategories.Select(c => new SelectListItem{
+                Value = c.SubjectCategoryId.ToString(),
+                Text = c.Description
+            });
+
+            ViewData["SubjectCategories"] = await subjectCategoryList.ToListAsync();
         }
     }
 }
