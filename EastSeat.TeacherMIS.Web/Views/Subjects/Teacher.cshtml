@@ -1,0 +1,64 @@
+@model TeacherSubjectsViewModel
+
+@{
+    ViewData["Title"] = "Subjects Taught";
+    string message = string.Empty;
+    if(TempData["Message"] != null)
+    {
+        message = TempData["Message"].ToString();
+    }
+    var subjectsList = (IEnumerable<SelectListItem>)ViewData["SubjectsList"];
+}
+
+<h2>Teacher: @Model.Teacher</h2>
+<hr>
+
+<div class="col-xs-12 col-sm-10 col-md-10 col-md-10">
+    @if(!string.IsNullOrWhiteSpace(message))
+    {
+        <div class="alert alert-success">@message</div>
+    }
+    <form class="form-horizontal" asp-action="add" asp-controller="subjecttaught" method="POST" role="form"> 
+        <input type="hidden" asp-for="TeacherId">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="input-group">
+                <span class="input-group-btn">
+                    <input class="btn btn-primary" value="Add Subject" type="submit" />
+                </span>
+                <select id="newSubject" name="newSubject" asp-items=@subjectsList class="form-control">
+                    <option>--- Select Subject ---</option>
+                </select>
+                </div>
+            </div>
+        </div>
+    </form>
+    <br>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Subjects Taught
+        </div>
+        <table class="table table-bordered table-condensed table-responsive table-striped">
+            @foreach(var subject in Model.SubjectsTaught)
+            {
+                <tr>
+                    <td class="col-xs-6"><a asp-action="details" asp-controller="subjects" asp-route-id=@subject.SubjectId>@subject.Subject</a></td>
+                    <td class="col-xs-6"><a asp-route="subjectcategory" asp-route-action="category" asp-route-id=@subject.SubjectCategoryStub>@subject.SubjectCategory</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            File Records
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item"><a asp-action="file" asp-controller="teachers" asp-route-id=@Model.TeacherId>Bio Data Details</a></li>
+            <li class="list-group-item"><a asp-action="teacher" asp-controller="subjects" asp-route-id=@Model.TeacherId>Subjects Taught</a></li>
+            <li class="list-group-item"><a asp-action="teacher" asp-controller="timeline" asp-route-id=@Model.TeacherId>Events Timeline</a></li>
+        </ul>
+    </div>
+</div>

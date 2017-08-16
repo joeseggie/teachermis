@@ -1,0 +1,26 @@
+@model IEnumerable<RetirementViewModel> 
+
+@{
+    ViewData["Title"] = "Retiring Teachers";
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr>
+
+<table class="table table-bordered table-condensed table-responsive table-striped">
+    <thead>
+        <th class="col-xs-4">Teacher</th>
+        <th class="col-xs-4">Date of Birth</th>
+        <th class="col-xs-4">School</th>
+    </thead>
+    <tbody>
+        @foreach(var retiree in Model)
+        {
+            <tr>
+                <td class="col-xs-4"><a asp-action="file" asp-controller="teachers" asp-route-id=@retiree.TeacherId>@retiree.Teacher</a></td>
+                <td class="col-xs-4">@retiree.DateOfBirth.ToString("dd, MMMM yyyy")</td>
+                <td class="col-xs-4"><a asp-action="school" asp-controller="schools" asp-route-id=@retiree.SchoolId>@retiree.School</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

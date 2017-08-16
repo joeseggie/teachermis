@@ -115,6 +115,12 @@ namespace EastSeat.TeacherMIS.Web
                 );
 
                 routes.MapRoute(
+                    name: "teacherreports",
+                    template: "reports/teachers/{action}/{id:int}",
+                    defaults: new { controller = "TeacherReports" }
+                );
+
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });

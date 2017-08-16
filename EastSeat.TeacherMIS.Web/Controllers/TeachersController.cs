@@ -99,23 +99,23 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                 _db.TeacherFiles.Add(new TeacherFile{
                     TeacherId = teacherId,
                     RecordDate = DateTime.Now,
-                    Details = $"Teacher file opened.\n\n"+
-                                "Teacher details:\n"+
-                                $"Fullname: {formData.Fullname}\n"+
-                                $"Teacher Id: {teacherId}\n"+
-                                $"Current Position: {formData.CurrentPosition}\n"+
-                                $"Education Service Commission Minute of Appointment: {formData.ConfirmationEscMinute}\n"+
-                                $"CurrentPositionAppMinute: {formData.CurrentPositionAppMinute}\n"+
-                                $"Date of Posting to Current Position: {formData.CurrentPositionPostingDate.ToString("dd, MMMM yyyy")}\n"+
-                                $"Date of Birth: {formData.DateOfBirth.ToString("dd, MMMM yyyy")}\n"+
-                                $"Education Service Commission Minute of First Appointment: {formData.FirstAppEscMinute}\n"+
-                                $"Date of First Appointment Starting with Probation: {formData.FirstProbationAppDate.ToString("dd, MMMM yyyy")}\n"+
-                                $"Sex: {formData.Gender}\n"+
-                                $"IPPS Number: {formData.IppsNumber}\n"+
-                                $"Position When Appointed on Probation: {formData.ProbationAppDesignation}\n"+
-                                $"Registration Number: {formData.RegistrationNumber}\n"+
-                                $"School Id: {formData.SchoolId}\n"+
-                                $"UTS File Number: {formData.UtsFileNumber}\n"
+                    Details = $"Teacher file opened.~~"+
+                                "Teacher details:~"+
+                                $"Fullname: {formData.Fullname}~"+
+                                $"Teacher Id: {teacherId}~"+
+                                $"Current Position: {formData.CurrentPosition}~"+
+                                $"Education Service Commission Minute of Appointment: {formData.ConfirmationEscMinute}~"+
+                                $"CurrentPositionAppMinute: {formData.CurrentPositionAppMinute}~"+
+                                $"Date of Posting to Current Position: {formData.CurrentPositionPostingDate.ToString("dd, MMMM yyyy")}~"+
+                                $"Date of Birth: {formData.DateOfBirth.ToString("dd, MMMM yyyy")}~"+
+                                $"Education Service Commission Minute of First Appointment: {formData.FirstAppEscMinute}~"+
+                                $"Date of First Appointment Starting with Probation: {formData.FirstProbationAppDate.ToString("dd, MMMM yyyy")}~"+
+                                $"Sex: {formData.Gender}~"+
+                                $"IPPS Number: {formData.IppsNumber}~"+
+                                $"Position When Appointed on Probation: {formData.ProbationAppDesignation}~"+
+                                $"Registration Number: {formData.RegistrationNumber}~"+
+                                $"School Id: {formData.SchoolId}~"+
+                                $"UTS File Number: {formData.UtsFileNumber}~"
                 });
 
                 _db.SaveChanges();
@@ -203,23 +203,23 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                     _db.TeacherFiles.Add(new TeacherFile{
                         TeacherId = teacherForUpdate.TeacherId,
                         RecordDate = DateTime.Now,
-                        Details = $"Teacher file opened.\n\n"+
-                                    "Teacher details:\n"+
-                                    $"Fullname: {formData.Fullname}\n"+
-                                    $"Teacher Id: {teacherForUpdate.TeacherId}\n"+
-                                    $"Current Position: {formData.CurrentPosition}\n"+
-                                    $"Education Service Commission Minute of Appointment: {formData.ConfirmationEscMinute}\n"+
-                                    $"CurrentPositionAppMinute: {formData.CurrentPositionAppMinute}\n"+
-                                    $"Date of Posting to Current Position: {formData.CurrentPositionPostingDate.ToString("dd, MMMM yyyy")}\n"+
-                                    $"Date of Birth: {formData.DateOfBirth.ToString("dd, MMMM yyyy")}\n"+
-                                    $"Education Service Commission Minute of First Appointment: {formData.FirstAppEscMinute}\n"+
-                                    $"Date of First Appointment Starting with Probation: {formData.FirstProbationAppDate.ToString("dd, MMMM yyyy")}\n"+
-                                    $"Sex: {formData.Gender}\n"+
-                                    $"IPPS Number: {formData.IppsNumber}\n"+
-                                    $"Position When Appointed on Probation: {formData.ProbationAppDesignation}\n"+
-                                    $"Registration Number: {formData.RegistrationNumber}\n"+
-                                    $"School Id: {formData.SchoolId}\n"+
-                                    $"UTS File Number: {formData.UtsFileNumber}\n"
+                        Details = $"Teacher file opened.~~"+
+                                    "Teacher details:~"+
+                                    $"Fullname: {formData.Fullname}~"+
+                                    $"Teacher Id: {teacherForUpdate.TeacherId}~"+
+                                    $"Current Position: {formData.CurrentPosition}~"+
+                                    $"Education Service Commission Minute of Appointment: {formData.ConfirmationEscMinute}~"+
+                                    $"CurrentPositionAppMinute: {formData.CurrentPositionAppMinute}~"+
+                                    $"Date of Posting to Current Position: {formData.CurrentPositionPostingDate.ToString("dd, MMMM yyyy")}~"+
+                                    $"Date of Birth: {formData.DateOfBirth.ToString("dd, MMMM yyyy")}~"+
+                                    $"Education Service Commission Minute of First Appointment: {formData.FirstAppEscMinute}~"+
+                                    $"Date of First Appointment Starting with Probation: {formData.FirstProbationAppDate.ToString("dd, MMMM yyyy")}~"+
+                                    $"Sex: {formData.Gender}~"+
+                                    $"IPPS Number: {formData.IppsNumber}~"+
+                                    $"Position When Appointed on Probation: {formData.ProbationAppDesignation}~"+
+                                    $"Registration Number: {formData.RegistrationNumber}~"+
+                                    $"School Id: {formData.SchoolId}~"+
+                                    $"UTS File Number: {formData.UtsFileNumber}~"
                     });
 
                     _db.SaveChanges();

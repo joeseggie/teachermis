@@ -129,6 +129,42 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             return View(formData);
         }
 
+        public async Task<IActionResult> Teacher(string id)
+        {
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                Guid teacherId;
+                if (Guid.TryParse(id.ToString(), out teacherId))
+                {
+                    var subjectsTaught = _db.SubjectsTaught
+                        .Where(s => s.TeacherId == teacherId)
+                        .Select(s => new SubjectTaughtViewModel{
+                            SubjectId = s.SubjectId,
+                            SubjectCategoryId = Guid.Parse(s.Subject.SubjectCategoryId.ToString()),
+                            SubjectCategoryStub = s.Subject.SubjectCategory.Stub,
+                            SubjectCategory = s.Subject.SubjectCategory.Description,
+                            Subject = s.Subject.Description
+                        });
+
+                    var teacherQuery = await _db.Teachers
+                        .Select(t => new TeacherSubjectsViewModel{
+                            Teacher = t.Fullname,
+                            TeacherId = t.TeacherId
+                        })
+                        .SingleOrDefaultAsync(t => t.TeacherId == teacherId);
+
+                    var model = teacherQuery;
+                    model.SubjectsTaught = await subjectsTaught.ToListAsync();
+
+                    await LoadSubjectSelectItemListAsync();
+
+                    return View(model);
+                }
+            }
+
+            return View("TeacherNotFound");
+        }
+
         private async Task LoadSubjectCategoriesSelectItemListAsync()
         {
             var subjectCategoryList = _db.SubjectCategories.Select(c => new SelectListItem{
@@ -137,6 +173,16 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             });
 
             ViewData["SubjectCategories"] = await subjectCategoryList.ToListAsync();
+        }
+
+        private async Task LoadSubjectSelectItemListAsync()
+        {
+            var subjectList = _db.Subjects.Select(c => new SelectListItem{
+                Value = c.SubjectId.ToString(),
+                Text = c.Description
+            });
+
+            ViewData["SubjectsList"] = await subjectList.ToListAsync();
         }
     }
 }
