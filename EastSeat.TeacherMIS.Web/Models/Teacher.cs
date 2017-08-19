@@ -25,6 +25,6 @@ namespace EastSeat.TeacherMIS.Web.Models
         public virtual School School { get; set; }
         public virtual Headmaster Headmaster { get; set; }
         public virtual IQueryable<SubjectTaught> SubjectsTaught { get; set; }
-        public virtual TeacherFile TeacherFile { get; set; }
+        public virtual IQueryable<TeacherFile> TeacherFiles { get; set; }
     }
 }

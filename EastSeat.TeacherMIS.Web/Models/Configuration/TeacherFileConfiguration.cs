@@ -28,8 +28,8 @@ namespace EastSeat.TeacherMIS.Web.Models.Configuration
                 .IsRowVersion();
             
             entity.HasOne(f => f.Teacher)
-                .WithOne(t => t.TeacherFile)
-                .IsRequired(true);
+                .WithMany(t => t.TeacherFiles)
+                .HasForeignKey(f => f.TeacherId);
 
             entity.ToTable("TeacherFile");
         }

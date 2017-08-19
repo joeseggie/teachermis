@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using EastSeat.TeacherMIS.Web.Services;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
@@ -16,10 +17,12 @@ namespace EastSeat.TeacherMIS.Web.Controllers
     public class TeachersController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly ITeacherFile _teacherFileService;
 
-        public TeachersController(ApplicationDbContext databaseContext)
+        public TeachersController(ApplicationDbContext databaseContext, ITeacherFile teacherFileService)
         {
             _db = databaseContext;
+            _teacherFileService = teacherFileService;
         }
 
         public async Task<IActionResult> Index(string search, int? page)
@@ -133,7 +136,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             return View(formData);
         }
 
-        public IActionResult File(string id)
+        public async Task<IActionResult> File(string id)
         {
             if (!string.IsNullOrWhiteSpace(id))
             {
@@ -141,7 +144,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
 
                 if (Guid.TryParse(id, out teacherId))
                 {
-                    var model = _db.Teachers
+                    var model = await _db.Teachers
                         .Select(t => new TeacherViewModel{
                             TeacherId = t.TeacherId,
                             ConfirmationEscMinute = t.ConfirmationEscMinute,
@@ -160,7 +163,9 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                             SchoolId = t.SchoolId,
                             UtsFileNumber = t.UtsFileNumber
                         })
-                        .SingleOrDefault(t => t.TeacherId == teacherId);
+                        .SingleOrDefaultAsync(t => t.TeacherId == teacherId);
+                    
+                    await _teacherFileService.LogAccess(User.Identity.Name, model.TeacherId);
                     return View(model);
                 }
             }
@@ -169,7 +174,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult File(TeacherViewModel formData)
+        public async Task<IActionResult> File(TeacherViewModel formData)
         {
             if (ModelState.IsValid)
             {
@@ -222,7 +227,8 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                                     $"UTS File Number: {formData.UtsFileNumber}~"
                     });
 
-                    _db.SaveChanges();
+                    await _db.SaveChangesAsync();
+                    await _teacherFileService.LogUpdate(User.Identity.Name, teacherForUpdate.TeacherId);
                 }
             }
 

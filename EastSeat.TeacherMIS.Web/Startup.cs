@@ -79,6 +79,7 @@ namespace EastSeat.TeacherMIS.Web
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<ITeacherFile, TeacherFileService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using EastSeat.TeacherMIS.Web.Services;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
@@ -16,10 +17,12 @@ namespace EastSeat.TeacherMIS.Web.Controllers
     public class SubjectsController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly ITeacherFile _teacherFileService;
 
-        public SubjectsController(ApplicationDbContext databaseContext)
+        public SubjectsController(ApplicationDbContext databaseContext, ITeacherFile teacherFileService)
         {
             _db = databaseContext;
+            _teacherFileService = teacherFileService;
         }
 
         public async Task<IActionResult> Index(string search, int? page)
@@ -157,6 +160,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                     model.SubjectsTaught = await subjectsTaught.ToListAsync();
 
                     await LoadSubjectSelectItemListAsync();
+                    await _teacherFileService.LogSubjectsTaughtAccess(User.Identity.Name, model.TeacherId);
 
                     return View(model);
                 }

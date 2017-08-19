@@ -9,16 +9,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using EastSeat.TeacherMIS.Web.Services;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
     public class SubjectTaughtController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly ITeacherFile _teacherFileService;
 
-        public SubjectTaughtController(ApplicationDbContext databaseContext)
+        public SubjectTaughtController(ApplicationDbContext databaseContext, ITeacherFile teacherFileService)
         {
             _db = databaseContext;
+            _teacherFileService = teacherFileService;
         }
 
         [HttpPost]
@@ -32,6 +35,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                     TeacherId = TeacherId
                 });
                 await _db.SaveChangesAsync();
+                await _teacherFileService.LogAddingSubjectTaught(User.Identity.Name, TeacherId, newSubjectTaught.Entity.Subject.Description);
 
                 TempData["Message"] = "Subject added successfully";
 
