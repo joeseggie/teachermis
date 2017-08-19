@@ -19,6 +19,11 @@ namespace EastSeat.TeacherMIS.Web.Models.Configuration
                 .HasMaxLength(200)
                 .ForSqlServerHasColumnType("varchar(200)");
 
+
+            entity.HasOne(s => s.District)
+                .WithMany(d => d.Schools)
+                .HasForeignKey(s => s.DistrictId);
+
             entity.Property(s => s.RowVersion)
                 .IsRequired(true)
                 .IsRowVersion();
