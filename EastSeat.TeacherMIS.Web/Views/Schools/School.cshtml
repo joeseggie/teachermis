@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "School Details";
     var districtsSelectList = ViewData["DistrictsSelectList"] as IEnumerable<SelectListItem>;
+    var schoolCategoriesSelectList = ViewData["SchoolCategoriesSelectList"] as IEnumerable<SelectListItem>;
     var message = string.Empty;
     if(TempData["Message"] != null)
     {
@@ -39,6 +40,12 @@
                         <label class="control-label" asp-for="DistrictId"></label>
                         <select asp-for="DistrictId" asp-items=@districtsSelectList class="form-control">
                             <option>--- Select District ---</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="SchoolCategoryId"></label>
+                        <select asp-for="SchoolCategoryId" asp-items=@schoolCategoriesSelectList class="form-control">
+                            <option>--- Select School Category ---</option>
                         </select>
                     </div>
                     <div class="form-group">

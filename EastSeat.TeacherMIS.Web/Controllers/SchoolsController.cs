@@ -98,6 +98,10 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                         Text = d.Name,
                         Value = d.DistrictId.ToString()
                     }).ToListAsync();
+                    ViewData["SchoolCategoriessSelectList"] = await _db.SchoolCategories.Select(d => new SelectListItem{
+                        Text = d.Description,
+                        Value = d.SchoolCategoryId.ToString()
+                    }).ToListAsync();
 
                     return View(model);
                 }
