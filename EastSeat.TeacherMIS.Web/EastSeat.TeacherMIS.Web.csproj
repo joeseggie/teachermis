@@ -4,6 +4,11 @@
     <UserSecretsId>aspnet-EastSeat.TeacherMIS.Web-DFBAFF79-ED36-4B17-8646-AC6D699E4CC4</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="NLog.xsd;nlog.config">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="1.1.2" />

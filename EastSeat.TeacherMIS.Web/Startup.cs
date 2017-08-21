@@ -13,6 +13,9 @@ using EastSeat.TeacherMIS.Web.Data;
 using EastSeat.TeacherMIS.Web.Models;
 using EastSeat.TeacherMIS.Web.Services;
 using Microsoft.AspNetCore.Session;
+using NLog.Extensions.Logging;
+using NLog.Web;
+using Microsoft.AspNetCore.Http;
 
 namespace EastSeat.TeacherMIS.Web
 {
@@ -31,6 +34,8 @@ namespace EastSeat.TeacherMIS.Web
                 // For more details on using the user secret store see https://go.microsoft.com/fwlink/?LinkID=532709
                 builder.AddUserSecrets<Startup>();
             }
+
+            env.ConfigureNLog("nlog.config");
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -77,6 +82,7 @@ namespace EastSeat.TeacherMIS.Web
             services.AddMvc();
 
             // Add application services.
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
             services.AddTransient<ITeacherFile, TeacherFileService>();
@@ -88,6 +94,8 @@ namespace EastSeat.TeacherMIS.Web
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            loggerFactory.AddNLog();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -98,6 +106,8 @@ namespace EastSeat.TeacherMIS.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.AddNLogWeb();
 
             app.UseStaticFiles();
 
