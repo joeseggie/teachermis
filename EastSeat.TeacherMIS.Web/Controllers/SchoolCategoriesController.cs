@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using EastSeat.TeacherMIS.Web.Data;
@@ -52,6 +53,19 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             }
 
             return View(formData);
+        }
+
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var model = await _db.SchoolCategories
+                .Select(c => new SchoolCategoryViewModel{
+                    SchoolCategoryId = c.SchoolCategoryId,
+                    Description = c.Description,
+                    RowVersion = c.RowVersion
+                })
+                .SingleOrDefaultAsync(c => c.SchoolCategoryId == id);
+
+            return View(model);
         }
     }
 }
