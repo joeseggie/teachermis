@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace EastSeat.TeacherMIS.Models.ViewModels
+namespace EastSeat.TeacherMIS.Web.Models.ViewModels
 {
     public class RoleViewModel
     {
