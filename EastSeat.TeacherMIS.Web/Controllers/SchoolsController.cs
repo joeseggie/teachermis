@@ -78,20 +78,25 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             return View(formData);
         }
 
-        public IActionResult School(string id)
+        public async Task<IActionResult> School(string id)
         {
             if(!string.IsNullOrWhiteSpace(id))
             {
                 Guid schoolId;
                 if (Guid.TryParse(id, out schoolId))
                 {
-                    var model = _db.Schools
+                    var model = await _db.Schools
                         .Select(s => new SchoolViewModel{
                             Name = s.Name,
                             SchoolId = s.SchoolId,
+                            DistrictId = s.DistrictId == null ? Guid.Empty : Guid.Parse(s.DistrictId.ToString()),
                             RowVersion = s.RowVersion
                         })
-                        .SingleOrDefault(s => s.SchoolId == schoolId);
+                        .SingleOrDefaultAsync(s => s.SchoolId == schoolId);
+                    ViewData["DistrictsSelectList"] = await _db.Districts.Select(d => new SelectListItem{
+                        Text = d.Name,
+                        Value = d.DistrictId.ToString()
+                    }).ToListAsync();
 
                     return View(model);
                 }
@@ -110,6 +115,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                 if (schoolForUpdate != null)
                 {
                     schoolForUpdate.Name = formData.Name;
+                    schoolForUpdate.DistrictId = formData.DistrictId;
                     _db.Update(schoolForUpdate);
 
                     _db.SaveChanges();
