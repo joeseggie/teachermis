@@ -18,8 +18,8 @@ namespace EastSeat.TeacherMIS.Web.Migrations
                 columns: table => new
                 {
                     SchoolCategoryId = table.Column<Guid>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    RowVersion = table.Column<byte[]>(nullable: true)
+                    Description = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
+                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {

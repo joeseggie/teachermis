@@ -8,7 +8,7 @@ using EastSeat.TeacherMIS.Web.Data;
 namespace EastSeat.TeacherMIS.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170821092221_SchoolCategory")]
+    [Migration("20170821095426_SchoolCategory")]
     partial class SchoolCategory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -156,9 +156,16 @@ namespace EastSeat.TeacherMIS.Web.Migrations
                     b.Property<Guid>("SchoolCategoryId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasAnnotation("SqlServer:ColumnType", "varchar(50)");
 
-                    b.Property<byte[]>("RowVersion");
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("SchoolCategoryId");
 

@@ -19,8 +19,8 @@ namespace EastSeat.TeacherMIS.Web.Models.Configuration
                 .ForSqlServerHasColumnType("varchar(50)");
 
             entity.Property(c => c.RowVersion)
-            .IsRequired()
-            .IsRowVersion();
+                .IsRequired()
+                .IsRowVersion();
 
             entity.ToTable("SchoolCategory");
         }
