@@ -28,5 +28,10 @@ namespace EastSeat.TeacherMIS.Web.Controllers
 
             return View(await model.ToListAsync());
         }
+
+        public IActionResult Add()
+        {
+            return View();
+        }
     }
 }
