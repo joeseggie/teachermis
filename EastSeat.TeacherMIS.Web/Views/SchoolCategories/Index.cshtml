@@ -1,0 +1,27 @@
+@model IEnumerable<SchoolCategoryViewModel>
+
+@{
+    ViewData["Title"] = "School Categories";
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr>
+<a asp-action="add" asp-controller="schoolcategories" class="btn btn-default">Add New Category</a>
+
+<br><br>
+
+<table class="table table-bordered table-condensed table-responsive table-striped">
+    <thead>
+        <tr>
+            <th class="col-xs-12">Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var category in Model)
+        {
+            <tr>
+                <td class="col-xs-12">@category.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
