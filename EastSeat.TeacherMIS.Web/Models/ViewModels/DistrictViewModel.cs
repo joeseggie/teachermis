@@ -10,6 +10,8 @@ namespace EastSeat.TeacherMIS.Web.Models.ViewModels
 
         [Required]
         public string Name { get; set; }
+        [Required]
+        public decimal WageAllocation { get; set; }
 
         [Required]
         public byte[] RowVersion { get; set; }

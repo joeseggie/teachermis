@@ -18,6 +18,9 @@ namespace EastSeat.TeacherMIS.Web.Models.Configuration
                 .IsUnicode(false)
                 .ForSqlServerHasColumnType("varchar(50)");
 
+            entity.Property(d => d.WageAllocation)
+                .ForSqlServerHasColumnType("money");
+
             entity.Property(d => d.RowVersion)
             .IsRequired()
             .IsRowVersion();
