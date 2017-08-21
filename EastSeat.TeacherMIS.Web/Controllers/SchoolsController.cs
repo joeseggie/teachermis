@@ -90,6 +90,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                             Name = s.Name,
                             SchoolId = s.SchoolId,
                             DistrictId = s.DistrictId == null ? Guid.Empty : Guid.Parse(s.DistrictId.ToString()),
+                            SchoolCategoryId = s.SchoolCategoryId == null ? Guid.Empty : Guid.Parse(s.SchoolCategoryId.ToString()),
                             RowVersion = s.RowVersion
                         })
                         .SingleOrDefaultAsync(s => s.SchoolId == schoolId);
