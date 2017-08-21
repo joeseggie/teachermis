@@ -21,6 +21,8 @@ namespace EastSeat.TeacherMIS.Web.Models.Configuration
             entity.Property(c => c.RowVersion)
             .IsRequired()
             .IsRowVersion();
+
+            entity.ToTable("SchoolCategory");
         }
     }
 }
