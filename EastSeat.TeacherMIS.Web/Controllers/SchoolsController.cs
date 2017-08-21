@@ -67,7 +67,8 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             if (ModelState.IsValid)
             {
                 var registeredSchoolEntry = _db.Schools.Add(new School{
-                    Name = formData.Name
+                    Name = formData.Name,
+                    DistrictId = formData.DistrictId
                 });
                 _db.SaveChanges();
 
