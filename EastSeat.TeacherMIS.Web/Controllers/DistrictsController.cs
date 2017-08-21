@@ -47,6 +47,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(DistrictViewModel formData)
         {
+            ModelState.Remove("RowVersion");
             if(ModelState.IsValid)
             {
                 var newDistrictAdded = await _db.Districts.AddAsync(new District{
@@ -99,7 +100,9 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                     _db.Update(districtForUpdate);
                     await _db.SaveChangesAsync();
 
-                    return RedirectToAction("Details", new{ id = formData });
+                    TempData["Message"] = "Changes saved successfully";
+
+                    return RedirectToAction("Details", new{ id = districtForUpdate.DistrictId });
                 }
             }
 
