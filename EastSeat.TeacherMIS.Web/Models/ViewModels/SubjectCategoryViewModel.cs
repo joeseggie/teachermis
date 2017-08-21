@@ -10,6 +10,9 @@ namespace EastSeat.TeacherMIS.Web.Models.ViewModels
         [Required]
         public string Description { get; set; }
         public string Stub { get; set; }
+        [Required]
+        [DisplayFormat(ApplyFormatInEditMode=true, DataFormatString="{0:0}")]
+        public decimal Salary { get; set; }
         public byte[] RowVersion { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace EastSeat.TeacherMIS.Web.Models
         public Guid SubjectCategoryId { get; set; }
         public string Description { get; set; }
         public string Stub { get; set; }
+        public decimal? Salary { get; set; }
         public byte[] RowVersion { get; set; }
 
         public virtual IQueryable<Subject> Subjects { get; set; }

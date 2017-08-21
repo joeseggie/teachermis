@@ -27,6 +27,9 @@ namespace EastSeat.TeacherMIS.Web.Models.Configuration
                 .HasMaxLength(50)
                 .ForSqlServerHasColumnType("varchar(50)");
 
+            entity.Property(c => c.Salary)
+                .ForSqlServerHasColumnType("money");
+
             entity.Property(c => c.RowVersion)
                 .IsRequired()
                 .IsRowVersion();

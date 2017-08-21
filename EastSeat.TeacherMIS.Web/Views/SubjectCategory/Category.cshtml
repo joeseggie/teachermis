@@ -19,9 +19,9 @@
         </div>
         <div class="panel-body">
 
-            <a asp-route="subjectcategory" asp-route-action="index" class="btn btn-default">&laquo; Back to list</a>
+            <a asp-route="subjectcategory" asp-route-action="index" asp-route-controller="subjectcategory" class="btn btn-default">&laquo; Back to list</a>
             
-            <form asp-action="details" asp-controller="subjects" method="POST" role="form">
+            <form asp-action="category" asp-controller="subjectcategory" method="POST" role="form">
                 <div class="form-horizontal" style="padding-left:10px; padding-right:10px;">
                     <input type="hidden" asp-for="SubjectCategoryId" />
                     <input type="hidden" asp-for="RowVersion" />
@@ -35,6 +35,10 @@
                     <div class="form-group">
                         <label class="control-label" asp-for="Description"></label>
                         <input type="text" class="form-control col-xs-10" asp-for="Description" placeholder="Description" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="Salary"></label>
+                        <input type="text" class="form-control col-xs-10" asp-for="Salary" placeholder="Subject category salary" />
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary" value="Save Changes" />

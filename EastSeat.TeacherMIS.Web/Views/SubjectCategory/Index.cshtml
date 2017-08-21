@@ -16,14 +16,16 @@
     <table class=" table table-bordered table-condensed table-responsive table-striped">
         <thead>
             <tr>
-                <th class="col-xs-12">Subject Category</th>
+                <th class="col-xs-9">Subject Category</th>
+                <th class="col-xs-3 text-right">Category Salary</th>
             </tr>
         </thead>
         <tbody>
             @foreach(var subjectCategory in Model)
             {
                 <tr>
-                    <td class="col-xs-12"><a asp-route="subjectcategory" asp-route-Id=@subjectCategory.Stub asp-route-action="category">@subjectCategory.Description</a></td>
+                    <td class="col-xs-9"><a asp-route="subjectcategory" asp-route-Id=@subjectCategory.Stub asp-route-action="category">@subjectCategory.Description</a></td>
+                    <td class="col-xs-3 text-right">@subjectCategory.Salary.ToString("UGX 0,0")</td>
                 </tr>
             }
         </tbody>

@@ -29,6 +29,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                     SubjectCategoryId = c.SubjectCategoryId,
                     Description = c.Description,
                     Stub = c.Stub,
+                    Salary = c.Salary??0,
                     RowVersion = c.RowVersion
                 });
 
@@ -49,6 +50,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                 string stub = Regex.Replace(formData.Description,@"[^A-Za-z0-9\s]", "-").ToLower();
                 var newSubjectCategory  = await _db.AddAsync(new SubjectCategory{
                     Description = formData.Description,
+                    Salary = formData.Salary,
                     Stub = stub
                 });
                 var subjectCategoriesAddedCount = await _db.SaveChangesAsync();
@@ -70,6 +72,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                         SubjectCategoryId = c.SubjectCategoryId,
                         Description = c.Description,
                         Stub = c.Stub,
+                        Salary = c.Salary??0,
                         RowVersion = c.RowVersion
                     })
                     .SingleOrDefaultAsync(c => c.Stub == id);
@@ -95,6 +98,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                 {
                     subjectCategoryToUpdate.Description = formData.Description;
                     subjectCategoryToUpdate.Stub = Regex.Replace(formData.Description,@"[^A-Za-z0-9\s]", "-").ToLower();
+                    subjectCategoryToUpdate.Salary = formData.Salary;
 
                     _db.Update(subjectCategoryToUpdate);
                     var subjectCategoryUpdatedCount = await _db.SaveChangesAsync();
