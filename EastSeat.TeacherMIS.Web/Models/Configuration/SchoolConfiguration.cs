@@ -24,6 +24,10 @@ namespace EastSeat.TeacherMIS.Web.Models.Configuration
                 .WithMany(d => d.Schools)
                 .HasForeignKey(s => s.DistrictId);
 
+            entity.HasOne(s => s.SchoolCategory)
+                .WithMany(c => c.Schools)
+                .HasForeignKey(s => s.SchoolCategoryId);
+
             entity.Property(s => s.RowVersion)
                 .IsRequired(true)
                 .IsRowVersion();
