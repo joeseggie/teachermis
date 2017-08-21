@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using EastSeat.TeacherMIS.Web.Data;
+using EastSeat.TeacherMIS.Web.Models;
 using EastSeat.TeacherMIS.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +33,25 @@ namespace EastSeat.TeacherMIS.Web.Controllers
         public IActionResult Add()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Add(SchoolCategoryViewModel formData)
+        {
+            if (ModelState.IsValid)
+            {
+                var newSchoolCategory =  _db.SchoolCategories.Add(new SchoolCategory{
+                    Description = formData.Description
+                });
+
+                await _db.SaveChangesAsync();
+                TempData["Message"] = "School category added successfully";
+
+                return RedirectToAction("details", routeValues: new { id = newSchoolCategory.Entity.SchoolCategoryId});
+            }
+
+            return View(formData);
         }
     }
 }
