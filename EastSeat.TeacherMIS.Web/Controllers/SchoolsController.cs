@@ -8,6 +8,7 @@ using EastSeat.TeacherMIS.Web.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
@@ -47,9 +48,16 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             return View(await PaginatedList<SchoolViewModel>.CreateAsync(model.AsNoTracking(), page ?? 1, pageSize));
         }
 
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
-            return View();
+            var model = new SchoolViewModel();
+            var districtsSelectList = _db.Districts.Select(d => new SelectListItem{
+                Value = d.DistrictId.ToString(),
+                Text = d.Name
+            });
+
+            model.DistrictsSelectList = await districtsSelectList.ToListAsync();
+            return View(model);
         }
 
         [HttpPost]
