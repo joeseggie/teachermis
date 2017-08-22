@@ -30,6 +30,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                 .Select(d => new DistrictViewModel{
                     DistrictId = d.DistrictId,
                     Name = d.Name,
+                    WageAllocation = d.WageAllocation??0,
                     RowVersion = d.RowVersion
                 });
 
@@ -51,7 +52,8 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             if(ModelState.IsValid)
             {
                 var newDistrictAdded = await _db.Districts.AddAsync(new District{
-                    Name = formData.Name
+                    Name = formData.Name,
+                    WageAllocation = formData.WageAllocation
                 });
 
                 var savedChangesCount = await _db.SaveChangesAsync();
@@ -72,6 +74,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                     var model = await _db.Districts.Select(d => new DistrictViewModel{
                         DistrictId = d.DistrictId,
                         Name = d.Name,
+                        WageAllocation = d.WageAllocation??0,
                         RowVersion = d.RowVersion
                     })
                     .SingleOrDefaultAsync(d => d.DistrictId == districtId);
@@ -96,6 +99,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                 else
                 {
                     districtForUpdate.Name = formData.Name;
+                    districtForUpdate.WageAllocation = formData.WageAllocation;
 
                     _db.Update(districtForUpdate);
                     await _db.SaveChangesAsync();
