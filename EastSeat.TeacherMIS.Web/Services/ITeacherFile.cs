@@ -10,5 +10,6 @@ namespace EastSeat.TeacherMIS.Web.Services
         Task LogSubjectsTaughtAccess(string username, Guid teacherId);
         Task LogAddingSubjectTaught(string username, Guid teacherId, string subject);
         Task LogTimelineAccess(string username, Guid teacherId);
+        Task LogRegistration(string username, Guid teacherId, string recordDetails);
     }
 }

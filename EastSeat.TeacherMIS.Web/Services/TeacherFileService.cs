@@ -69,5 +69,16 @@ namespace EastSeat.TeacherMIS.Web.Services
 
             await _db.SaveChangesAsync();
         }
+
+        public async Task LogRegistration(string username, Guid teacherId, string recordDetails)
+        {
+            _db.TeacherFiles.Add(new TeacherFile{
+                Details = $"Teacher with details {recordDetails}~~recorded by {username}",
+                RecordDate = DateTime.Now,
+                TeacherId = teacherId
+            });
+
+            await _db.SaveChangesAsync();
+        }
     }
 }

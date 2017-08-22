@@ -1,44 +1,119 @@
-﻿@{
+﻿@model DashboardViewModel
+
+@{
     ViewData["Title"] = "Teacher MIS";
 }
 
 <h2>Teacher Management Information System</h2>
 <hr>
 
+<input type="hidden" asp-for="TeachersScienceVersusArts">
+<input type="hidden" asp-for="TeachersRetiringVersusNonRetiring">
+<input type="hidden" asp-for="AllocatedWagesVersusHiringCost">
+
 <div class="col-md-4 col-sm-6 col-xs-12">
     <div class="panel panel-default">
         <div class="panel-heading">
-            Teachers
+            Teachers: Sciences vs Arts
         </div>
-        <ul class="list-group">
-            <li class="list-group-item">Teachers' List</li>
-            <li class="list-group-item">Register Teacher</li>
-            <li class="list-group-item">Subject Teachers</li>
-            <li class="list-group-item">School Teachers</li>
-        </ul>
+        <div class="panel-body">
+            <canvas id="sciVsArtsChart" width="400" height="200"></canvas>
+        </div>
     </div>
 </div>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
     <div class="panel panel-default">
         <div class="panel-heading">
-            Schools
+            Teachers: Retiring or retired in 6 months
         </div>
-        <ul class="list-group">
-            <li class="list-group-item">Add New School</li>
-            <li class="list-group-item">Schools' List</li>
-        </ul>
+        <div class="panel-body">
+            <canvas id="retireSixMonthsChart" width="400" height="200"></canvas>
+        </div>
     </div>
 </div>
 
 <div class="col-md-4 col-sm-6 col-xs-12">
     <div class="panel panel-default">
         <div class="panel-heading">
-            Subjects
+            Wage Allocation vs Hiring Cost
         </div>
-        <ul class="list-group">
-            <li class="list-group-item">Add Subject</li>
-            <li class="list-group-item">Subjects' List</li>
-        </ul>
+        <div class="panel-body">
+            <canvas id="wageAllocation" width="400" height="200"></canvas>
+        </div>
     </div>
 </div>
+
+@section Scripts{
+    <script src="~/lib/chart.js/dist/Chart.min.js"></script>
+    <!-- <script src="~/lib/chart.js/dist/Chart.bundle.min.js"></script> -->
+    <script type="text/javascript">
+        $(function(){
+            var ctxSciVsArts = $('#sciVsArtsChart');
+            var feeddata = $('#TeachersScienceVersusArts').val().split(',');
+            
+            data = {
+                datasets: [{
+                    data: feeddata,
+                    backgroundColor:[
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)']
+                }],
+                
+                labels: [
+                    'Sciences',
+                    'Arts'
+                ],
+            };
+
+            var myDoughnutChart = new Chart(ctxSciVsArts, {
+                type: 'doughnut',
+                data: data
+            });
+
+            var ctxretireSixMonths = $('#retireSixMonthsChart');
+            var retiringFeeddata = $('#TeachersRetiringVersusNonRetiring').val().split(',');
+            
+            data = {
+                datasets: [{
+                    data: retiringFeeddata,
+                    backgroundColor:[
+                    'rgba(20, 99, 132, 0.8)',
+                    'rgba(54, 202, 235, 0.8)']
+                }],
+                
+                labels: [
+                    'Active',
+                    'Retiring'
+                ],
+            };
+
+            var myDoughnutChart = new Chart(ctxretireSixMonths, {
+                type: 'doughnut',
+                data: data
+            });
+
+            var ctxWageAllocation = $('#wageAllocation');
+            var wageFeeddata = $('#AllocatedWagesVersusHiringCost').val().split(',');
+            
+            data = {
+                datasets: [{
+                    data: wageFeeddata,
+                    backgroundColor:[
+                    'rgba(202, 99, 132, 0.8)',
+                    'rgba(154, 202, 235, 0.8)']
+                }],
+                
+                labels: [
+                    'Wages Allocated',
+                    'Hiring Cost'
+                ],
+            };
+
+            var myBarChart = new Chart(ctxWageAllocation, {
+                type: 'bar',
+                data: data
+            });
+        });
+    </script>
+}

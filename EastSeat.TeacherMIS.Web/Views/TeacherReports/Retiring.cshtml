@@ -9,18 +9,32 @@
 
 <table class="table table-bordered table-condensed table-responsive table-striped">
     <thead>
-        <th class="col-xs-4">Teacher</th>
-        <th class="col-xs-4">Date of Birth</th>
-        <th class="col-xs-4">School</th>
+        <th class="col-xs-3">Teacher</th>
+        <th class="col-xs-3">Date of Birth</th>
+        <th class="col-xs-3">Days to Retirement</th>
+        <th class="col-xs-3">School</th>
     </thead>
     <tbody>
         @foreach(var retiree in Model)
         {
-            <tr>
-                <td class="col-xs-4"><a asp-action="file" asp-controller="teachers" asp-route-id=@retiree.TeacherId>@retiree.Teacher</a></td>
-                <td class="col-xs-4">@retiree.DateOfBirth.ToString("dd, MMMM yyyy")</td>
-                <td class="col-xs-4"><a asp-action="school" asp-controller="schools" asp-route-id=@retiree.SchoolId>@retiree.School</a></td>
-            </tr>
+            if(retiree.DaysToRetirement > 0)
+            {
+                <tr>
+                    <td class="col-xs-3"><a asp-action="file" asp-controller="teachers" asp-route-id=@retiree.TeacherId>@retiree.Teacher</a></td>
+                    <td class="col-xs-3">@retiree.DateOfBirth.ToString("dd, MMMM yyyy")</td>
+                    <td class="col-xs-3">@retiree.DaysToRetirement.ToString("0,0")</td>
+                    <td class="col-xs-3"><a asp-action="school" asp-controller="schools" asp-route-id=@retiree.SchoolId>@retiree.School</a></td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td class="col-xs-3 danger"><a asp-action="file" asp-controller="teachers" asp-route-id=@retiree.TeacherId>@retiree.Teacher</a></td>
+                    <td class="col-xs-3 danger">@retiree.DateOfBirth.ToString("dd, MMMM yyyy")</td>
+                    <td class="col-xs-3 danger">@retiree.DaysToRetirement.ToString("0,0")</td>
+                    <td class="col-xs-3 danger"><a asp-action="school" asp-controller="schools" asp-route-id=@retiree.SchoolId>@retiree.School</a></td>
+                </tr>
+            }
         }
     </tbody>
 </table>

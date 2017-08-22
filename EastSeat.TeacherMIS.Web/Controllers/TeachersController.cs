@@ -99,10 +99,9 @@ namespace EastSeat.TeacherMIS.Web.Controllers
 
                 var teacherId = newTeacherEntry.Entity.TeacherId;
 
-                _db.TeacherFiles.Add(new TeacherFile{
-                    TeacherId = teacherId,
-                    RecordDate = DateTime.Now,
-                    Details = $"Teacher file opened.~~"+
+                _db.SaveChanges();
+
+                var recordDetails = $"Teacher file opened.~~"+
                                 "Teacher details:~"+
                                 $"Fullname: {formData.Fullname}~"+
                                 $"Teacher Id: {teacherId}~"+
@@ -118,10 +117,9 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                                 $"Position When Appointed on Probation: {formData.ProbationAppDesignation}~"+
                                 $"Registration Number: {formData.RegistrationNumber}~"+
                                 $"School Id: {formData.SchoolId}~"+
-                                $"UTS File Number: {formData.UtsFileNumber}~"
-                });
+                                $"UTS File Number: {formData.UtsFileNumber}~";
 
-                _db.SaveChanges();
+                // _teacherFileService.LogRegistration(User.Identity.Name, teacherId, recordDetails);
 
                 TempData["Message"] = "Teacher registered successfully";
 
@@ -205,30 +203,30 @@ namespace EastSeat.TeacherMIS.Web.Controllers
 
                     _db.Update(teacherForUpdate);
 
-                    _db.TeacherFiles.Add(new TeacherFile{
-                        TeacherId = teacherForUpdate.TeacherId,
-                        RecordDate = DateTime.Now,
-                        Details = $"Teacher file opened.~~"+
-                                    "Teacher details:~"+
-                                    $"Fullname: {formData.Fullname}~"+
-                                    $"Teacher Id: {teacherForUpdate.TeacherId}~"+
-                                    $"Current Position: {formData.CurrentPosition}~"+
-                                    $"Education Service Commission Minute of Appointment: {formData.ConfirmationEscMinute}~"+
-                                    $"CurrentPositionAppMinute: {formData.CurrentPositionAppMinute}~"+
-                                    $"Date of Posting to Current Position: {formData.CurrentPositionPostingDate.ToString("dd, MMMM yyyy")}~"+
-                                    $"Date of Birth: {formData.DateOfBirth.ToString("dd, MMMM yyyy")}~"+
-                                    $"Education Service Commission Minute of First Appointment: {formData.FirstAppEscMinute}~"+
-                                    $"Date of First Appointment Starting with Probation: {formData.FirstProbationAppDate.ToString("dd, MMMM yyyy")}~"+
-                                    $"Sex: {formData.Gender}~"+
-                                    $"IPPS Number: {formData.IppsNumber}~"+
-                                    $"Position When Appointed on Probation: {formData.ProbationAppDesignation}~"+
-                                    $"Registration Number: {formData.RegistrationNumber}~"+
-                                    $"School Id: {formData.SchoolId}~"+
-                                    $"UTS File Number: {formData.UtsFileNumber}~"
-                    });
+                    // _db.TeacherFiles.Add(new TeacherFile{
+                    //     TeacherId = teacherForUpdate.TeacherId,
+                    //     RecordDate = DateTime.Now,
+                    //     Details = $"Teacher file opened.~~"+
+                    //                 "Teacher details:~"+
+                    //                 $"Fullname: {formData.Fullname}~"+
+                    //                 $"Teacher Id: {teacherForUpdate.TeacherId}~"+
+                    //                 $"Current Position: {formData.CurrentPosition}~"+
+                    //                 $"Education Service Commission Minute of Appointment: {formData.ConfirmationEscMinute}~"+
+                    //                 $"CurrentPositionAppMinute: {formData.CurrentPositionAppMinute}~"+
+                    //                 $"Date of Posting to Current Position: {formData.CurrentPositionPostingDate.ToString("dd, MMMM yyyy")}~"+
+                    //                 $"Date of Birth: {formData.DateOfBirth.ToString("dd, MMMM yyyy")}~"+
+                    //                 $"Education Service Commission Minute of First Appointment: {formData.FirstAppEscMinute}~"+
+                    //                 $"Date of First Appointment Starting with Probation: {formData.FirstProbationAppDate.ToString("dd, MMMM yyyy")}~"+
+                    //                 $"Sex: {formData.Gender}~"+
+                    //                 $"IPPS Number: {formData.IppsNumber}~"+
+                    //                 $"Position When Appointed on Probation: {formData.ProbationAppDesignation}~"+
+                    //                 $"Registration Number: {formData.RegistrationNumber}~"+
+                    //                 $"School Id: {formData.SchoolId}~"+
+                    //                 $"UTS File Number: {formData.UtsFileNumber}~"
+                    // });
 
                     await _db.SaveChangesAsync();
-                    await _teacherFileService.LogUpdate(User.Identity.Name, teacherForUpdate.TeacherId);
+                    // await _teacherFileService.LogUpdate(User.Identity.Name, teacherForUpdate.TeacherId);
                 }
             }
 

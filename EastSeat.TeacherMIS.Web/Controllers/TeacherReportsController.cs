@@ -17,9 +17,8 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             _db = databaseContext;
         }
 
-        public async Task<IActionResult> Retiring(int id)
+        public async Task<IActionResult> Retiring(double id)
         {
-
             var model = _db.Teachers
                 .Where(t => (t.DateOfBirth.AddYears(50) - DateTime.Now.AddDays(id)).Days < 180)
                 .Select(t => new RetirementViewModel{
@@ -27,6 +26,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                     Teacher = t.Fullname,
                     DateOfBirth = t.DateOfBirth,
                     School = t.School.Name,
+                    DaysToRetirement = (t.DateOfBirth.AddYears(50).Subtract(DateTime.Now.AddDays(id))).Days,
                     SchoolId = t.SchoolId
                 });
 

@@ -35,7 +35,8 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                     TeacherId = TeacherId
                 });
                 await _db.SaveChangesAsync();
-                await _teacherFileService.LogAddingSubjectTaught(User.Identity.Name, TeacherId, newSubjectTaught.Entity.Subject.Description);
+                var subject = await _db.Subjects.SingleOrDefaultAsync(s => s.SubjectId == newsubject);
+                // await _teacherFileService.LogAddingSubjectTaught(User.Identity.Name, TeacherId, subject.Description);
 
                 TempData["Message"] = "Subject added successfully";
 
