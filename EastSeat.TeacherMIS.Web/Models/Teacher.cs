@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace EastSeat.TeacherMIS.Web.Models
 {
@@ -24,7 +25,7 @@ namespace EastSeat.TeacherMIS.Web.Models
 
         public virtual School School { get; set; }
         public virtual Headmaster Headmaster { get; set; }
-        public virtual IQueryable<SubjectTaught> SubjectsTaught { get; set; }
-        public virtual IQueryable<TeacherFile> TeacherFiles { get; set; }
+        public virtual IEnumerable<SubjectTaught> SubjectsTaught { get; set; }
+        public virtual IEnumerable<TeacherFile> TeacherFiles { get; set; }
     }
 }

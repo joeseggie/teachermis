@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace EastSeat.TeacherMIS.Web.Models
 {
@@ -10,7 +11,7 @@ namespace EastSeat.TeacherMIS.Web.Models
         public Guid? SubjectCategoryId { get; set; }
         public byte[] RowVersion { get; set; }
 
-        public virtual IQueryable<SubjectTaught> SubjectsTaught { get; set; }
+        public virtual IEnumerable<SubjectTaught> SubjectsTaught { get; set; }
         public virtual SubjectCategory SubjectCategory { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Teacher File";
+    var schoolsSelectList = ViewData["SchoolsSelectList"] as IEnumerable<SelectListItem>;
     var message = string.Empty;
     if(TempData["Message"] != null)
     {
@@ -84,7 +85,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="control-label" asp-for="SchoolId"></label>
-                                <input type="text" class="form-control col-xs-10" asp-for="SchoolId" />
+                                <select class="form-control" asp-for="SchoolId" asp-items=@schoolsSelectList></select>
                             </div>
                             <div class="form-group">
                                 <label class="control-label" asp-for="CurrentPositionPostingDate"></label>
@@ -113,3 +114,24 @@
         </ul>
     </div>
 </div>
+
+@section Scripts{
+    <link rel="stylesheet" href="~/lib/datetimepicker/build/jquery.datetimepicker.min.css" />
+    <script src='~/lib/datetimepicker/build/jquery.datetimepicker.full.js'></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#CurrentPositionPostingDate').datetimepicker({
+                timepicker : false,
+                format: 'm/d/Y'
+            });
+            $('#DateOfBirth').datetimepicker({
+                timepicker : false,
+                format: 'm/d/Y'
+            });
+            $('#FirstProbationAppDate').datetimepicker({
+                timepicker : false,
+                format: 'm/d/Y'
+            });
+        });
+    </script>
+}

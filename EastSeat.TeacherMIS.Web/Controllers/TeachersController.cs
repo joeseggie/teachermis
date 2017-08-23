@@ -162,6 +162,11 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                             UtsFileNumber = t.UtsFileNumber
                         })
                         .SingleOrDefaultAsync(t => t.TeacherId == teacherId);
+
+                    ViewData["SchoolsSelectList"] = _db.Schools.Select(s => new SelectListItem{
+                        Value = s.SchoolId.ToString(),
+                        Text = s.Name
+                    });
                     
                     await _teacherFileService.LogAccess(User.Identity.Name, model.TeacherId);
                     return View(model);
@@ -229,6 +234,11 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                     // await _teacherFileService.LogUpdate(User.Identity.Name, teacherForUpdate.TeacherId);
                 }
             }
+
+            ViewData["SchoolsSelectList"] = _db.Schools.Select(s => new SelectListItem{
+                Value = s.SchoolId.ToString(),
+                Text = s.Name
+            });
 
             return View(formData);
         }

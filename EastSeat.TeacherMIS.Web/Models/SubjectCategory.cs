@@ -13,6 +13,6 @@ namespace EastSeat.TeacherMIS.Web.Models
         public decimal? Salary { get; set; }
         public byte[] RowVersion { get; set; }
 
-        public virtual IQueryable<Subject> Subjects { get; set; }
+        public virtual IEnumerable<Subject> Subjects { get; set; }
     }
 }

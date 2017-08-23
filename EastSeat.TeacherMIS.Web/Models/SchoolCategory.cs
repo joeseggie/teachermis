@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace EastSeat.TeacherMIS.Web.Models
 {
@@ -9,6 +10,6 @@ namespace EastSeat.TeacherMIS.Web.Models
         public string Description { get; set; }
         public byte[] RowVersion { get; set; }
         
-        public virtual IQueryable<School> Schools { get; set; }
+        public virtual IEnumerable<School> Schools { get; set; }
     }
 }

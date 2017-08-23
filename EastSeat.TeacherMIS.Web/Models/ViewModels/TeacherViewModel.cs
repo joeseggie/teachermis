@@ -19,6 +19,7 @@ namespace EastSeat.TeacherMIS.Web.Models.ViewModels
         public string UtsFileNumber { get; set; }
         [Required()]
         [Display(Name="Date of Birth")]
+        [DisplayFormat(ApplyFormatInEditMode=true, DataFormatString="{0:MM/dd/yyyy}")]
         public DateTime DateOfBirth { get; set; }
         [Required()]
         [Display(Name="Registration Number")]
@@ -28,6 +29,7 @@ namespace EastSeat.TeacherMIS.Web.Models.ViewModels
         public string IppsNumber { get; set; }
         [Required()]
         [Display(Name="Date of First Appointment Starting with Probation")]
+        [DisplayFormat(ApplyFormatInEditMode=true, DataFormatString="{0:MM/dd/yyyy}")]
         public DateTime FirstProbationAppDate { get; set; }
         [Required()]
         [Display(Name="Position When Appointed on Probation")]
@@ -49,6 +51,7 @@ namespace EastSeat.TeacherMIS.Web.Models.ViewModels
         public Guid SchoolId { get; set; }
         [Required()]
         [Display(Name="Date of Posting to Current Position")]
+        [DisplayFormat(ApplyFormatInEditMode=true, DataFormatString="{0:MM/dd/yyyy}")]
         public DateTime CurrentPositionPostingDate { get; set; }
         public byte[] RowVersion { get; set; }
 
