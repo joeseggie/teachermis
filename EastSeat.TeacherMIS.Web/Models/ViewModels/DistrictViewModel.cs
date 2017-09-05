@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EastSeat.TeacherMIS.Web.Models.ViewModels
@@ -15,5 +16,6 @@ namespace EastSeat.TeacherMIS.Web.Models.ViewModels
 
         [Required]
         public byte[] RowVersion { get; set; }
+        public IEnumerable<SchoolViewModel> Schools { get; set; }
     }
 }

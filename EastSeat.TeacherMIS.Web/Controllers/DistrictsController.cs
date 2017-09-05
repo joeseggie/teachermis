@@ -78,7 +78,17 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                         RowVersion = d.RowVersion
                     })
                     .SingleOrDefaultAsync(d => d.DistrictId == districtId);
-
+                    model.Schools = _db.Schools
+                    .Where(s => s.DistrictId == districtId)
+                    .Select(s => new SchoolViewModel{
+                        Name = s.Name,
+                        SchoolId = s.SchoolId,
+                        SchoolTeachers = s.Teachers
+                        .Where(t => t.School.DistrictId == districtId)
+                        .Select(t => new TeacherViewModel{
+                            Fullname = t.Fullname
+                        })
+                    });
                     return View(model);
                 }
             }

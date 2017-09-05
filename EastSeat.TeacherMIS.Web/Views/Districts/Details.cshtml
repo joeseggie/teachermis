@@ -13,32 +13,46 @@
 <hr>
 
 
-<div class="col-xs-offset-1 col-xs-9">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            District Details
-        </div>
-        <div class="panel-body">
-            <form asp-action="details" asp-controller="districts" method="POST" role="form">
-                <div class="form-horizontal" style="padding-left:10px; padding-right:10px;">
-                    <input type="hidden" asp-for="DistrictId" />
-                    <input type="hidden" asp-for="RowVersion" />
+<div class="col-xs-12">
+    <div class="well well-sm">
+        <form asp-action="details" asp-controller="districts" method="POST" role="form">
+            <div class="form-horizontal" style="padding-left:10px; padding-right:10px;">
+                <input type="hidden" asp-for="DistrictId" />
+                <input type="hidden" asp-for="RowVersion" />
 
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                    @if(!string.IsNullOrWhiteSpace(message))
-                    {
-                        <div class="alert alert-success">@message</div>
-                    }
+                <div asp-validation-summary="All" class="text-danger"></div>
+                @if(!string.IsNullOrWhiteSpace(message))
+                {
+                    <div class="alert alert-success">@message</div>
+                }
 
-                    <div class="form-group">
-                        <label class="control-label" asp-for="Name"></label>
+                <div class="form-group">
+                    <label class="control-label col-xs-1" asp-for="Name"></label>
+                    <div class="col-xs-11">
                         <input type="text" class="form-control col-xs-10" asp-for="Name" placeholder="District name" />
                     </div>
-                    <div class="form-group">
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-offset-1 col-xs-11">
                         <input type="submit" class="btn btn-primary" value="Save Changes" />
                     </div>
                 </div>
-            </form>
+            </div>
+        </form>
+    </div>
+    <hr>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <strong>Schools in District</strong>
+        </div>
+        <div class="list-group">
+            <ul class="list-group">
+                @foreach(var school in Model.Schools)
+                {
+                    <li class="list-group-item">
+                        <a asp-controller="schools" asp-action="school" asp-route-id=@school.SchoolId>@school.Name</a></li>
+                }
+            </ul>
         </div>
     </div>
 </div>
