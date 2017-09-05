@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using EastSeat.TeacherMIS.Web.Models;
 using EastSeat.TeacherMIS.Web.Models.AccountViewModels;
 using EastSeat.TeacherMIS.Web.Services;
+using EastSeat.TeacherMIS.Web.Models.ViewModels;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
@@ -116,15 +117,10 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
-                    // Send an email with this link
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                    //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    // await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation(3, "User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+                    // return RedirectToLocal(returnUrl);
+                    return RedirectToAction("users", new{ Controller="account"});
                 }
                 AddErrors(result);
             }
@@ -449,6 +445,51 @@ namespace EastSeat.TeacherMIS.Web.Controllers
         public IActionResult AccessDenied()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Users()
+        {
+            var model = _userManager.Users
+                .Select(u => new RegisterViewModel{
+                    Firstname = u.Firstname,
+                    Lastname = u.Lastname,
+                    Email = u.Email,
+                    Username = u.UserName
+                }).ToList();
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UserProfile(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return View("users");
+            }
+
+            var applicationUser = await _userManager.FindByNameAsync(id);
+            if(applicationUser == null)
+            {
+                return View("users");
+            }
+            else
+            {
+                var model = new RegisterViewModel{
+                    Firstname = applicationUser.Firstname,
+                    Lastname = applicationUser.Lastname,
+                    Username = applicationUser.UserName,
+                    Email = applicationUser.Email
+                };
+
+                var userRoles = await _userManager.GetRolesAsync(applicationUser);
+
+                model.AssignedRoles = userRoles.Select(r => new RoleViewModel{
+                    RoleName = r
+                });
+
+                return View(model);
+            }
         }
 
         #region Helpers

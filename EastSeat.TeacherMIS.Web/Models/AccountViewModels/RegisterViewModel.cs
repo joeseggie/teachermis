@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using EastSeat.TeacherMIS.Web.Models.ViewModels;
 
 namespace EastSeat.TeacherMIS.Web.Models.AccountViewModels
 {
@@ -35,5 +36,7 @@ namespace EastSeat.TeacherMIS.Web.Models.AccountViewModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public IEnumerable<RoleViewModel> AssignedRoles { get; set; }
     }
 }
