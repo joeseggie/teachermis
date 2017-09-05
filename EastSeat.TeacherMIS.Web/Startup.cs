@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Session;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 
 namespace EastSeat.TeacherMIS.Web
 {

@@ -28,8 +28,9 @@
         <thead>
             <tr>
                 <th class="col-md-3 col-sm-6 col-xs-12">Teacher's Name</th>
-                <th class="col-md-3 col-sm-hide col-xs-hide">UTS File Number</th>
-                <th class="col-md-3 col-sm-hide col-xs-hide">IPPS Number</th>
+                <th class="col-md-2 col-sm-hide col-xs-hide">UTS File Number</th>
+                <th class="col-md-2 col-sm-hide col-xs-hide">IPPS Number</th>
+                <th class="col-md-2 col-sm-hide col-xs-hide">Date of Birth</th>
                 <th class="col-md-3 col-sm-6 col-xs-hide">School</th>
             </tr>
         </thead>
@@ -38,8 +39,9 @@
             {
                 <tr>
                     <td class="col-md-3 col-sm-6 col-xs-12"><a asp-action="file" asp-route-Id=@teacher.TeacherId>@teacher.Fullname</a></td>
-                    <td class="col-md-3 col-sm-hide col-xs-hide">@teacher.UtsFileNumber</td>
-                    <td class="col-md-3 col-sm-hide col-xs-hide">@teacher.IppsNumber</td>
+                    <td class="col-md-2 col-sm-hide col-xs-hide">@teacher.UtsFileNumber</td>
+                    <td class="col-md-2 col-sm-hide col-xs-hide">@teacher.IppsNumber</td>
+                    <td class="col-md-2 col-sm-hide col-xs-hide">@teacher.DateOfBirth.ToString("dd MMMM yyyy")</td>
                     <td class="col-md-3 col-sm-6 col-xs-hide"><a asp-action="school" asp-controller="schools" asp-route-Id=@teacher.SchoolId>@teacher.SchoolName</a></td>
                 </tr>
             }

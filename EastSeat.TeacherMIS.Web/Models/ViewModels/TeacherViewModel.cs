@@ -19,18 +19,21 @@ namespace EastSeat.TeacherMIS.Web.Models.ViewModels
         public string UtsFileNumber { get; set; }
         [Required()]
         [Display(Name="Date of Birth")]
-        [DisplayFormat(ApplyFormatInEditMode=true, DataFormatString="{0:MM/dd/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime DateOfBirth { get; set; }
+
         [Required()]
         [Display(Name="Registration Number")]
         public string RegistrationNumber { get; set; }
         [Required()]
         [Display(Name="IPPS Number")]
         public string IppsNumber { get; set; }
+
         [Required()]
         [Display(Name="Date of First Appointment Starting with Probation")]
-        [DisplayFormat(ApplyFormatInEditMode=true, DataFormatString="{0:MM/dd/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime FirstProbationAppDate { get; set; }
+
         [Required()]
         [Display(Name="Position When Appointed on Probation")]
         public string ProbationAppDesignation { get; set; }
@@ -51,8 +54,9 @@ namespace EastSeat.TeacherMIS.Web.Models.ViewModels
         public Guid SchoolId { get; set; }
         [Required()]
         [Display(Name="Date of Posting to Current Position")]
-        [DisplayFormat(ApplyFormatInEditMode=true, DataFormatString="{0:MM/dd/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime CurrentPositionPostingDate { get; set; }
+        
         public byte[] RowVersion { get; set; }
 
         [Display(Name="School")]
