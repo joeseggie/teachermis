@@ -15,55 +15,199 @@
 <hr>
 
 
-<div class="col-xs-offset-1 col-xs-9">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            School Details
+<div class="col-xs-12">
+    <form asp-action="school" class="well well-sm" asp-controller="schools" method="POST" role="form">
+        <div class="form-horizontal">
+            <input type="hidden" asp-for="SchoolId" />
+            <input type="hidden" asp-for="RowVersion" />
+            <input type="hidden" asp-for="TeachersScienceVersusArts" />
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+            @if(!string.IsNullOrWhiteSpace(message))
+            {
+                <div class="alert alert-success">@message</div>
+            }
+
+            <div class="form-group">
+                <label class="control-label col-xs-1" asp-for="Name"></label>
+                <div class="col-xs-11">
+                    <input type="text" class="form-control" asp-for="Name" placeholder="Name" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-1" asp-for="DistrictId"></label>
+                <div class="col-xs-5">
+                    <select asp-for="DistrictId" asp-items=@districtsSelectList class="form-control">
+                        <option>--- Select District ---</option>
+                    </select>
+                </div>
+                <label class="control-label col-xs-2" asp-for="SchoolCategoryId"></label>
+                <div class="col-xs-4">
+                    <select asp-for="SchoolCategoryId" asp-items=@schoolCategoriesSelectList class="form-control">
+                        <option>--- Select School Category ---</option>
+                </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-1 col-xs-11">
+                    <input type="submit" class="btn btn-primary" value="Save Changes" />
+                </div>
+            </div>
         </div>
-        <div class="panel-body">
-            <form asp-action="school" asp-controller="schools" method="POST" role="form">
-                <div class="form-horizontal" style="padding-left:10px; padding-right:10px;">
-                    <input type="hidden" asp-for="SchoolId" />
-                    <input type="hidden" asp-for="RowVersion" />
-
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                    @if(!string.IsNullOrWhiteSpace(message))
-                    {
-                        <div class="alert alert-success">@message</div>
-                    }
-
-                    <div class="form-group">
-                        <label class="control-label" asp-for="Name"></label>
-                        <input type="text" class="form-control col-xs-10" asp-for="Name" placeholder="Name" />
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" asp-for="DistrictId"></label>
-                        <select asp-for="DistrictId" asp-items=@districtsSelectList class="form-control">
-                            <option>--- Select District ---</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" asp-for="SchoolCategoryId"></label>
-                        <select asp-for="SchoolCategoryId" asp-items=@schoolCategoriesSelectList class="form-control">
-                            <option>--- Select School Category ---</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-primary" value="Save Changes" />
+    </form>
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-university fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">500,000,000</div>
+                            <div>Wage Bill!</div>
+                        </div>
                     </div>
                 </div>
-            </form>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-tasks fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">12</div>
+                            <div>New Tasks!</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-users fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">14</div>
+                            <div>Teachers Count!</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-support fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">13</div>
+                            <div>For Your Attention!</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <p class="lead">School Teachers</p>            
+            <table class="table table-condesed table-striped table-responsive table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-xs-4">Name</th>
+                        <th class="col-xs-4">Position</th>
+                        <th class="col-xs-4">Posting Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var teacher in Model.SchoolTeachers)
+                    {
+                        <tr>
+                            <td class="col-xs-4"><a asp-controller="teachers" asp-action="file" asp-route-Id=@teacher.TeacherId>@teacher.Fullname</a></td>
+                            <td class="col-xs-4">@teacher.CurrentPosition</td>
+                            <td class="col-xs-4">@teacher.CurrentPositionPostingDate.ToString("dd MMMM yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-6">
+            <p class="lead">Science vs Arts Teachers</p>
+            <div class="well well-sm">
+                <canvas id="sciVsArtsChart" width="400" height="200"></canvas>
+            </div>
         </div>
     </div>
 </div>
 
 @section Scripts
 {
+    <script src="~/lib/chart.js/dist/Chart.min.js"></script>
     <script type="text/javascript">
         $('#collapseOne').removeClass('in');
         $('#collapseTwo').addClass('in');
         $('#collapseThree').removeClass('in');
         $('#collapseFour').removeClass('in');
         $('#collapseFive').removeClass('in');
+        $(function(){
+            var ctxSciVsArts = $('#sciVsArtsChart');
+            var feeddata = $('#TeachersScienceVersusArts').val().split(',');
+            
+            data = {
+                datasets: [{
+                    data: feeddata,
+                    backgroundColor:[
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)']
+                }],
+                
+                labels: [
+                    'Sciences',
+                    'Arts'
+                ],
+            };
+
+            var myDoughnutChart = new Chart(ctxSciVsArts, {
+                type: 'doughnut',
+                data: data
+            });
+        });
     </script>
 }

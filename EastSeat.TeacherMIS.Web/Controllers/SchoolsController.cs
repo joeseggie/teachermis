@@ -103,6 +103,21 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                         Value = d.SchoolCategoryId.ToString()
                     }).ToListAsync();
 
+                    var schoolTeachers = _db.Teachers
+                        .Where(t => t.SchoolId == schoolId);
+
+                    var scienceSchoolTeachers = await schoolTeachers.CountAsync(t => t.SubjectsTaught.Any(s => s.Subject.SubjectCategory.Stub.ToLower() == "sciences"));
+                    var artsSchoolTeachers = (await schoolTeachers.CountAsync()) - scienceSchoolTeachers;
+
+                    model.SchoolTeachers = await schoolTeachers.Select(t => new TeacherViewModel{
+                        TeacherId = t.TeacherId,
+                        Fullname = t.Fullname,
+                        CurrentPosition = t.CurrentPosition,
+                        CurrentPositionPostingDate = t.CurrentPositionPostingDate
+                    }).ToListAsync();
+
+                    model.TeachersScienceVersusArts = $"{scienceSchoolTeachers},{artsSchoolTeachers}";
+
                     return View(model);
                 }
             }

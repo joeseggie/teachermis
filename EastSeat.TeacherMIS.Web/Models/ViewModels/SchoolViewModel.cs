@@ -11,7 +11,7 @@ namespace EastSeat.TeacherMIS.Web.Models.ViewModels
         [Required()]
         public Guid SchoolId { get; set; }
         [Required]
-        [Display(Name = "School Name")]
+        [Display(Name = "Name")]
         public string Name { get; set; }
         [Required]
         [Display(Name="District")]
@@ -20,6 +20,8 @@ namespace EastSeat.TeacherMIS.Web.Models.ViewModels
         [Display(Name="School Category")]
         public Guid SchoolCategoryId { get; set; }
         public byte[] RowVersion { get; set; }
+        public string TeachersScienceVersusArts{ get; set; }
+        public IEnumerable<TeacherViewModel> SchoolTeachers { get; set; }
 
         public virtual IEnumerable<SelectListItem> DistrictsSelectList { get; set; }
     }
