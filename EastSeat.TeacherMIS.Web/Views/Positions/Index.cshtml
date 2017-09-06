@@ -1,0 +1,19 @@
+@model IEnumerable<PositionViewModel>
+
+@{
+    ViewData["Title"] = "Teaching Positions";
+}
+
+<h2>Teaching Positions</h2>
+<hr>
+<a asp-action="add" asp-controller="positions" class="btn btn-danger">New Position</a><br><br>
+<div class="panel panel-default">
+    <div class="list-group">
+        <ul class="list-group">
+            @foreach(var position in Model)
+            {
+                <li class="list-group-item">@position.Name</li>
+            }
+        </ul>
+    </div>
+</div>
