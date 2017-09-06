@@ -26,6 +26,8 @@ namespace EastSeat.TeacherMIS.Web.Data
         public DbSet<SubjectCategory> SubjectCategories { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<SchoolCategory> SchoolCategories { get; set; }
+        public DbSet<Grade> Grades { get; set; }
+        public DbSet<Position> Positions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -43,6 +45,8 @@ namespace EastSeat.TeacherMIS.Web.Data
             builder.AddConfiguration(new SubjectTaughtConfiguration());
             builder.AddConfiguration(new DistrictConfiguration());
             builder.AddConfiguration(new SchoolCategoryConfiguration());
+            builder.AddConfiguration(new GradeConfiguration());
+            builder.AddConfiguration(new PositionConfiguration());
         }
     }
 }

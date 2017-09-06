@@ -17,7 +17,8 @@ namespace EastSeat.TeacherMIS.Web.Models
         public string ProbationAppDesignation { get; set; }
         public string FirstAppEscMinute { get; set; }
         public string ConfirmationEscMinute { get; set; }
-        public string CurrentPosition { get; set; }
+        public Guid? PositionId { get; set; }
+        public Guid? GradeId { get; set; }
         public string CurrentPositionAppMinute { get; set; }
         public Guid SchoolId { get; set; }
         public DateTime CurrentPositionPostingDate { get; set; }
@@ -25,6 +26,8 @@ namespace EastSeat.TeacherMIS.Web.Models
 
         public virtual School School { get; set; }
         public virtual Headmaster Headmaster { get; set; }
+        public virtual Grade Grade { get; set; }
+        public virtual Position Position { get; set; }
         public virtual IEnumerable<SubjectTaught> SubjectsTaught { get; set; }
         public virtual IEnumerable<TeacherFile> TeacherFiles { get; set; }
     }

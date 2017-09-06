@@ -45,7 +45,8 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                 .Select(t => new TeacherViewModel{
                     TeacherId = t.TeacherId,
                     ConfirmationEscMinute = t.ConfirmationEscMinute,
-                    CurrentPosition = t.CurrentPosition,
+                    PositionId = t.PositionId??Guid.Empty,
+                    GradeId = t.GradeId??Guid.Empty,
                     CurrentPositionAppMinute = t.CurrentPositionAppMinute,
                     CurrentPositionPostingDate = t.CurrentPositionPostingDate,
                     DateOfBirth = t.DateOfBirth,
@@ -83,7 +84,8 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             if(ModelState.IsValid)
             {
                 var newTeacherEntry = _db.Teachers.Add(new Teacher{
-                    CurrentPosition            = formData.CurrentPosition,
+                    PositionId            = formData.PositionId,
+                    GradeId            = formData.GradeId,
                     ConfirmationEscMinute      = formData.ConfirmationEscMinute,
                     CurrentPositionAppMinute   = formData.CurrentPositionAppMinute,
                     CurrentPositionPostingDate = formData.CurrentPositionPostingDate,
@@ -129,7 +131,8 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                         .Select(t => new TeacherViewModel{
                             TeacherId = t.TeacherId,
                             ConfirmationEscMinute = t.ConfirmationEscMinute,
-                            CurrentPosition = t.CurrentPosition,
+                            PositionId = t.PositionId??Guid.Empty,
+                            GradeId = t.GradeId??Guid.Empty,
                             CurrentPositionAppMinute = t.CurrentPositionAppMinute,
                             CurrentPositionPostingDate = t.CurrentPositionPostingDate,
                             DateOfBirth = t.DateOfBirth,
@@ -171,7 +174,8 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                 }
                 else
                 {
-                    teacherForUpdate.CurrentPosition            = formData.CurrentPosition            ;
+                    teacherForUpdate.PositionId            = formData.PositionId            ;
+                    teacherForUpdate.GradeId = formData.GradeId;
                     teacherForUpdate.ConfirmationEscMinute      = formData.ConfirmationEscMinute      ;
                     teacherForUpdate.CurrentPositionAppMinute   = formData.CurrentPositionAppMinute   ;
                     teacherForUpdate.CurrentPositionPostingDate = formData.CurrentPositionPostingDate ;
@@ -221,7 +225,8 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                         .Select(t => new TeacherViewModel{
                             TeacherId = t.TeacherId,
                             ConfirmationEscMinute = t.ConfirmationEscMinute,
-                            CurrentPosition = t.CurrentPosition,
+                            PositionId = t.PositionId??Guid.Empty,
+                            GradeId = t.GradeId??Guid.Empty,
                             CurrentPositionAppMinute = t.CurrentPositionAppMinute,
                             CurrentPositionPostingDate = t.CurrentPositionPostingDate,
                             DateOfBirth = t.DateOfBirth,
@@ -262,7 +267,8 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                         .Select(t => new TeacherViewModel{
                             TeacherId                  = t.Teacher.TeacherId,
                             ConfirmationEscMinute      = t.Teacher.ConfirmationEscMinute,
-                            CurrentPosition            = t.Teacher.CurrentPosition,
+                            PositionId            = t.Teacher.PositionId??Guid.Empty,
+                            GradeId = t.Teacher.GradeId??Guid.Empty,
                             CurrentPositionAppMinute   = t.Teacher.CurrentPositionAppMinute,
                             CurrentPositionPostingDate = t.Teacher.CurrentPositionPostingDate,
                             DateOfBirth                = t.Teacher.DateOfBirth,

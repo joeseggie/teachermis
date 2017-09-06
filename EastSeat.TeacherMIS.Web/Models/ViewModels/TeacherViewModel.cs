@@ -45,7 +45,12 @@ namespace EastSeat.TeacherMIS.Web.Models.ViewModels
         public string ConfirmationEscMinute { get; set; }
         [Required()]
         [Display(Name="Current Position")]
-        public string CurrentPosition { get; set; }
+        public Guid PositionId { get; set; }
+
+        [Required()]
+        [Display(Name="Grade")]
+        public Guid GradeId { get; set; }
+        
         [Required()]
         [Display(Name="Education Service Commission Minute of Current Position")]
         public string CurrentPositionAppMinute { get; set; }

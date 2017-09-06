@@ -17,6 +17,14 @@ namespace EastSeat.TeacherMIS.Web.Models.Configuration
                 .WithMany(s => s.Teachers)
                 .HasForeignKey(t => t.SchoolId);
 
+            entity.HasOne(t => t.Position)
+                .WithMany(p => p.Teachers)
+                .HasForeignKey(p => p.PositionId);
+
+            entity.HasOne(t => t.Grade)
+                .WithMany(g => g.Teachers)
+                .HasForeignKey(t => t.GradeId);
+
             entity.Property(t => t.Fullname)
                 .IsRequired()
                 .IsUnicode(false)
@@ -72,12 +80,6 @@ namespace EastSeat.TeacherMIS.Web.Models.Configuration
                 .IsUnicode(false)
                 .HasMaxLength(200)
                 .ForSqlServerHasColumnType("varchar(200)");
-
-            entity.Property(t => t.CurrentPosition)
-                .IsRequired()
-                .IsUnicode(false)
-                .HasMaxLength(100)
-                .ForSqlServerHasColumnType("varchar(100)");
 
             entity.Property(t => t.CurrentPositionAppMinute)
                 .IsRequired()

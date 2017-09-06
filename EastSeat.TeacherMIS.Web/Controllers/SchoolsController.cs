@@ -112,7 +112,8 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                     model.SchoolTeachers = await schoolTeachers.Select(t => new TeacherViewModel{
                         TeacherId = t.TeacherId,
                         Fullname = t.Fullname,
-                        CurrentPosition = t.CurrentPosition,
+                        PositionId = t.PositionId??Guid.Empty,
+                        GradeId = t.GradeId??Guid.Empty,
                         CurrentPositionPostingDate = t.CurrentPositionPostingDate
                     }).ToListAsync();
 
