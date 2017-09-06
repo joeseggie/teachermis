@@ -1,0 +1,19 @@
+@model IEnumerable<GradeViewModel>
+
+@{
+    ViewData["Title"] = "Teaching Grades";
+}
+
+<h2>Teaching Grades</h2>
+<hr>
+<a asp-action="add" asp-controller="grades" class="btn btn-danger">New Grade</a><br><br>
+<div class="panel panel-default">
+    <div class="list-group">
+        <ul class="list-group">
+            @foreach(var grade in Model)
+            {
+                <li class="list-group-item">@grade.Name</li>
+            }
+        </ul>
+    </div>
+</div>
