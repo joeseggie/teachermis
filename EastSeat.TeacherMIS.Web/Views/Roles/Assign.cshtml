@@ -1,0 +1,40 @@
+@{
+    ViewData["Title"] = "Assign Role";
+    var usersSelect = ViewData["Users"] as IEnumerable<SelectListItem>;
+    var rolesSelect = ViewData["Roles"] as IEnumerable<SelectListItem>;
+}
+
+<h2>Assign Role</h2>
+<hr>
+<div class="col-xs-offset-3 col-xs-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            User Role Assignment
+        </div>
+        <div class="panel-body">
+            <form asp-action="assign" asp-controller="roles" method="POST" role="form">
+
+                <a asp-controller="account" asp-action="users" class="btn btn-default">&laquo; Back to users</a>
+
+                <div class="form-horizontal" style="padding-left:10px; padding-right:10px;">                    
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label class="control-label">Role</label>
+                        <select id="user" name="user" asp-items=@usersSelect class="form-control">
+                            <option>--- Select User ---</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">User</label>
+                        <select id="role" name="role" asp-items=@rolesSelect class="form-control">
+                            <option>--- Select Role ---</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-danger" value="Assign Role" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

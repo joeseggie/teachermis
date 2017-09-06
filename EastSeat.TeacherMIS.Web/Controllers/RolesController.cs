@@ -7,16 +7,17 @@ using EastSeat.TeacherMIS.Web.Models.ViewModels;
 using System;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class RolesController : Controller
     {
-        private readonly RoleManager<ApplicationRole> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public RolesController(RoleManager<ApplicationRole> roleManager, UserManager<ApplicationUser> userManager)
+        public RolesController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
@@ -32,6 +33,27 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             return View(model);
         }
 
+        public IActionResult New()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> New(RoleViewModel formData)
+        {
+            if (ModelState.IsValid)
+            {
+                await _roleManager.CreateAsync(new IdentityRole{
+                    Name = formData.RoleName
+                });
+                
+                return RedirectToAction("index");
+            }
+
+            return View(formData);
+        }
+
         public IActionResult Assign()
         {
             ViewData["Roles"] = _roleManager.Roles
@@ -43,7 +65,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             ViewData["Users"] = _userManager.Users
                 .Select(u => new SelectListItem{
                     Value = u.Id,
-                    Text = $"{u.Firstname} {u.Lastname} - ({u.UserName})"
+                    Text = u.UserName
                 });
 
             return View();
@@ -64,7 +86,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                 ViewData["Users"] = _userManager.Users
                     .Select(u => new SelectListItem{
                         Value = u.Id,
-                        Text = $"{u.Firstname} {u.Lastname} - ({u.UserName})"
+                        Text = u.UserName
                     });
                     
                 ModelState.AddModelError("", "Select user and role to be assigned");

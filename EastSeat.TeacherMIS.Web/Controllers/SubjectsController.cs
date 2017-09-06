@@ -13,7 +13,6 @@ using EastSeat.TeacherMIS.Web.Services;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
-    [Authorize]
     public class SubjectsController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -25,6 +24,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             _teacherFileService = teacherFileService;
         }
 
+        [Authorize(Roles = "Admin,Supervisor,HumanResource")]
         public async Task<IActionResult> Index(string search, int? page)
         {
             if (search != null)
@@ -53,6 +53,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             return View(await PaginatedList<SubjectViewModel>.CreateAsync(model.AsNoTracking(), page ?? 1, pageSize));
         }
 
+        [Authorize(Roles = "Admin,Supervisor,HumanResource")]
         public async Task<IActionResult> New()
         {
             await LoadSubjectCategoriesSelectItemListAsync();
@@ -78,6 +79,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             return View(formData);
         }
 
+        [Authorize(Roles = "Admin,Supervisor,HumanResource")]
         public async Task<IActionResult> Details(string id)
         {
             if (!string.IsNullOrWhiteSpace(id))
@@ -104,6 +106,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             return View("SubjectNotFound");
         }
 
+        [Authorize(Roles = "Admin,Supervisor,HumanResource")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Details(SubjectViewModel formData)
@@ -132,6 +135,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             return View(formData);
         }
 
+        [Authorize(Roles = "Admin,Supervisor,HumanResource,DataEntrant")]
         public async Task<IActionResult> Teacher(string id)
         {
             if (!string.IsNullOrWhiteSpace(id))

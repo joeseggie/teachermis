@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Supervisor,HumanResource")]
     public class SchoolsController : Controller
     {
         private readonly ApplicationDbContext _db;

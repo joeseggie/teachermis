@@ -1,0 +1,22 @@
+@model IEnumerable<RoleViewModel>
+
+@{
+    ViewData["Title"] = "Roles";
+}
+
+<h2>Roles</h2>
+<hr>
+<a asp-action="new" asp-controller="roles" class="btn btn-danger">New Role</a><br><br>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        System Roles
+    </div>
+    <div class="list-group">
+        <ul class="list-group">
+            @foreach(var role in Model)
+            {
+                <li class="list-group-item">@role.RoleName</li>
+            }
+        </ul>
+    </div>
+</div>

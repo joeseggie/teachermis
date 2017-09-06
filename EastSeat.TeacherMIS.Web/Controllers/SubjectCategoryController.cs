@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Supervisor,HumanResource")]
     public class SubjectCategoryController : Controller
     {
         private readonly ApplicationDbContext _db;

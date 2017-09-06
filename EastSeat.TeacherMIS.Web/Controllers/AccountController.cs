@@ -16,7 +16,7 @@ using EastSeat.TeacherMIS.Web.Models.ViewModels;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -442,6 +442,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
         //
         // GET /Account/AccessDenied
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult AccessDenied()
         {
             return View();

@@ -13,7 +13,7 @@ using EastSeat.TeacherMIS.Web.Services;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ManageController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

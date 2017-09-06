@@ -13,6 +13,7 @@ using EastSeat.TeacherMIS.Web.Services;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
+    [Authorize(Roles = "Admin,Supervisor,HumanResource,DataEntrant")]
     public class SubjectTaughtController : Controller
     {
         private readonly ApplicationDbContext _db;

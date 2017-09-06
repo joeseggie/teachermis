@@ -3,11 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using EastSeat.TeacherMIS.Web.Data;
 using EastSeat.TeacherMIS.Web.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
+    [Authorize(Roles = "Admin,Supervisor,HumanResource,DataEntrant")]
     public class TeacherReportsController : Controller
     {
         private readonly ApplicationDbContext _db;

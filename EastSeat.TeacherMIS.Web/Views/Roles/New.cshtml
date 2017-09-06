@@ -1,0 +1,33 @@
+@model RoleViewModel
+
+@{
+    ViewData["Title"] = "New Role";
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr>
+
+<div class="col-xs-offset-1 col-xs-9">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Role Details
+        </div>
+        <div class="panel-body">
+            <form asp-action="new" asp-controller="roles" method="POST" role="form">
+
+                <a asp-controller="roles" asp-action="index" class="btn btn-default">&laquo; Back to list</a>
+
+                <div class="form-horizontal" style="padding-left:10px; padding-right:10px;">                    
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="RoleName"></label>
+                        <input type="text" class="form-control col-xs-10" asp-for="RoleName" placeholder="Role" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-danger" value="Add Role" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

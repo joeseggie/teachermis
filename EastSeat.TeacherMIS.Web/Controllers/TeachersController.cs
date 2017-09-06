@@ -16,7 +16,7 @@ using System.Threading;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Supervisor,HumanResource,DataEntrant")]
     public class TeachersController : Controller
     {
         private readonly ApplicationDbContext _db;
