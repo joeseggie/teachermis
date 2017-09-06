@@ -74,6 +74,14 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                     Value = l.SchoolId.ToString(),
                     Text = l.Name
                 });
+            ViewData["Positions"] = _db.Positions.Select(p => new SelectListItem{
+                Value = p.PositionId.ToString(),
+                Text = p.Name
+            });
+            ViewData["Grades"] = _db.Grades.Select(g => new SelectListItem{
+                Value = g.GradeId.ToString(),
+                Text = g.Name
+            });
             return View();
         }
 
@@ -116,6 +124,14 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                     Value = l.SchoolId.ToString(),
                     Text = l.Name
                 });
+            ViewData["Positions"] = _db.Positions.Select(p => new SelectListItem{
+                Value = p.PositionId.ToString(),
+                Text = p.Name
+            });
+            ViewData["Grades"] = _db.Grades.Select(g => new SelectListItem{
+                Value = g.GradeId.ToString(),
+                Text = g.Name
+            });
             return View(formData);
         }
 
@@ -152,6 +168,14 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                     ViewData["SchoolsSelectList"] = _db.Schools.Select(s => new SelectListItem{
                         Value = s.SchoolId.ToString(),
                         Text = s.Name
+                    });
+                    ViewData["Positions"] = _db.Positions.Select(p => new SelectListItem{
+                        Value = p.PositionId.ToString(),
+                        Text = p.Name
+                    });
+                    ViewData["Grades"] = _db.Grades.Select(g => new SelectListItem{
+                        Value = g.GradeId.ToString(),
+                        Text = g.Name
                     });
                     
                     await _teacherFileService.LogAccess(User.Identity.Name, model.TeacherId);
@@ -202,6 +226,14 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             ViewData["SchoolsSelectList"] = _db.Schools.Select(s => new SelectListItem{
                 Value = s.SchoolId.ToString(),
                 Text = s.Name
+            });
+            ViewData["Positions"] = _db.Positions.Select(p => new SelectListItem{
+                Value = p.PositionId.ToString(),
+                Text = p.Name
+            });
+            ViewData["Grades"] = _db.Grades.Select(g => new SelectListItem{
+                Value = g.GradeId.ToString(),
+                Text = g.Name
             });
 
             return View(formData);

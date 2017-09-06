@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Register Teacher";
     var SchoolList = (IEnumerable<SelectListItem>)ViewData["Schools"];
+    var positionsList = (IEnumerable<SelectListItem>)ViewData["Positions"];
+    var gradesList = (IEnumerable<SelectListItem>)ViewData["Grades"];
 }
 
 <h2>Register Teacher</h2>
@@ -64,8 +66,16 @@
                         <input type="text" class="form-control col-xs-10" asp-for="ConfirmationEscMinute" placeholder="Education Service Commission Minute of Appointment" />
                     </div>
                     <div class="form-group">
-                        <label class="control-label" asp-for="CurrentPosition"></label>
-                        <input type="text" class="form-control col-xs-10" asp-for="CurrentPosition" placeholder="Current Position" />
+                        <label class="control-label" asp-for="PositionId"></label>
+                        <select class="col-xs-10 form-control" asp-for="PositionId" asp-items="@positionsList">
+                            <option>--- Select Position ---</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="GradeId"></label>
+                        <select class="col-xs-10 form-control" asp-for="GradeId" asp-items="@gradesList">
+                            <option>--- Select Grade ---</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label class="control-label" asp-for="CurrentPositionAppMinute"></label>

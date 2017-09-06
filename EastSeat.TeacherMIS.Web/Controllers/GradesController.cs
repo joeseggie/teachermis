@@ -3,12 +3,14 @@ using System.Threading.Tasks;
 using EastSeat.TeacherMIS.Web.Data;
 using EastSeat.TeacherMIS.Web.Models;
 using EastSeat.TeacherMIS.Web.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
+    [Authorize(Roles="Admin,HumanResource,Supervisor")]
     public class GradesController : Controller
     {
         private readonly ILogger<GradesController> _logger;
