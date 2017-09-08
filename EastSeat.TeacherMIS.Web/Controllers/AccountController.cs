@@ -494,6 +494,24 @@ namespace EastSeat.TeacherMIS.Web.Controllers
             }
         }
 
+        public async Task<IActionResult> RemoveUser(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return RedirectToAction("users");
+            }
+
+            var userToRemove = await _userManager.FindByNameAsync(id);
+            var result = await _userManager.DeleteAsync(userToRemove);
+
+            if (result.Succeeded)
+            {
+                // TODO: Handle success deletion of user
+            }
+
+            return RedirectToAction("users");
+        }
+
         #region Helpers
 
         private void AddErrors(IdentityResult result)
