@@ -22,13 +22,13 @@ namespace EastSeat.TeacherMIS.Web.Controllers
         public async Task<IActionResult> Retiring(double id)
         {
             var model = _db.Teachers
-                .Where(t => (t.DateOfBirth.AddYears(50) - DateTime.Now.AddDays(id)).Days < 180)
+                .Where(t => (t.DateOfBirth.AddYears(60) - DateTime.Now.AddDays(id)).Days < 180)
                 .Select(t => new RetirementViewModel{
                     TeacherId = t.TeacherId,
                     Teacher = t.Fullname,
                     DateOfBirth = t.DateOfBirth,
                     School = t.School.Name,
-                    DaysToRetirement = (t.DateOfBirth.AddYears(50).Subtract(DateTime.Now.AddDays(id))).Days,
+                    DaysToRetirement = (t.DateOfBirth.AddYears(60).Subtract(DateTime.Now.AddDays(id))).Days,
                     SchoolId = t.SchoolId
                 });
 
