@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EastSeat.TeacherMIS.Web.Controllers
 {
-    [Authorize(Roles = "Admin,Supervisor,HumanResource")]
+    [Authorize(Roles = "Admin,Supervisor,HumanResource,DataEntrant")]
     public class SchoolsController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -113,6 +113,7 @@ namespace EastSeat.TeacherMIS.Web.Controllers
                         TeacherId = t.TeacherId,
                         Fullname = t.Fullname,
                         PositionId = t.PositionId??Guid.Empty,
+                        CurrentPosition = t.Position.Name,
                         GradeId = t.GradeId??Guid.Empty,
                         CurrentPositionPostingDate = t.CurrentPositionPostingDate
                     }).ToListAsync();
