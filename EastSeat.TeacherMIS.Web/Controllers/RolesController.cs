@@ -100,5 +100,23 @@ namespace EastSeat.TeacherMIS.Web.Controllers
 
             return RedirectToAction("userprofile", new { controller = "account", id = userToBeAssign.UserName });
         }
+
+        public async Task<IActionResult> Revoke(string user, string role)
+        {
+            if(string.IsNullOrWhiteSpace(user) || string.IsNullOrWhiteSpace(role))
+            {
+                return RedirectToAction("users", new { controller = "account" });
+            }
+
+            var userToRemovePermissions = await _userManager.FindByNameAsync(user);
+            var result = await _userManager.RemoveFromRoleAsync(userToRemovePermissions, role);
+
+            if (result.Succeeded)
+            {
+                // Process success
+            }
+
+            return RedirectToAction("userprofile", new { controller = "account", id = user });
+        }
     }
 }

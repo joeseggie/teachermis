@@ -59,13 +59,16 @@
             <div class="panel-heading">
                 User Roles
             </div>
-            <table class="table table-condensed table-responsive table-bordered table-striped">
+            <table class="table table-condensed table-responsive table-striped">
                 <tbody>
-                    <tr><td class="col-xs-12"><a asp-action="assign" asp-controller="roles" class="btn btn-danger">Assign Roles</a></td></tr>
+                    <tr><td class="col-xs-12" colspan="2"><a asp-action="assign" asp-controller="roles" class="btn btn-danger">Assign Roles</a></td></tr>
                     @foreach(var role in Model.AssignedRoles)
                     {
                         <tr>
-                            <td class="col-xs-12">@role.RoleName</td>
+                            <td class="col-xs-8">@role.RoleName</td>
+                            <td class="col-xs-4">
+                                <a asp-action="revoke" asp-controller="roles" asp-route-user=@Model.Username asp-route-role=@role.RoleName class="btn btn-sm btn-primary">Revoke</a>
+                            </td>
                         </tr>
                     }
                 </tbody>
