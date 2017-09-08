@@ -46,6 +46,7 @@ namespace EastSeat.TeacherMIS.Web.Models.ViewModels
         [Required()]
         [Display(Name="Current Position")]
         public Guid PositionId { get; set; }
+        public string CurrentPosition { get; set; }
 
         [Required()]
         [Display(Name="Grade")]
