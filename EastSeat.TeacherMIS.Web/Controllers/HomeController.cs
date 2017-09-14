@@ -39,8 +39,8 @@ namespace EastSeat.TeacherMIS.Web.Controllers
 
             model.TeachersScienceVersusArts = $"{scienceTeachers},{artsTeachers}";
 
-            var teachersCount = await _db.Teachers.CountAsync(t => (t.DateOfBirth.AddYears(50) - DateTime.Now.AddDays(180)).Days >= 180);
-            var retiringTeachers = await _db.Teachers.CountAsync(t => (t.DateOfBirth.AddYears(50) - DateTime.Now.AddDays(180)).Days < 180);
+            var teachersCount = await _db.Teachers.CountAsync(t => (t.DateOfBirth.AddYears(60) - DateTime.Now.AddDays(180)).Days >= 180);
+            var retiringTeachers = await _db.Teachers.CountAsync(t => (t.DateOfBirth.AddYears(60) - DateTime.Now.AddDays(180)).Days < 180);
 
             model.TeachersRetiringVersusNonRetiring = $"{teachersCount},{retiringTeachers}";
 
